@@ -5,6 +5,15 @@
 </head>
 <body>
     <h1>Gráfico de Acción</h1>
-    {{ chart|safe }}
+
+    <form method="get">
+        <label for="ticker">Símbolo:</label>
+        <input type="text" id="ticker" name="ticker" value="{{ ticker }}">
+        <button type="submit">Buscar</button>
+    </form>
+
+    <div style="margin-top: 30px;">
+        {{ chart|safe }}
+    </div>
 </body>
 </html>

@@ -4,18 +4,18 @@ import plotly.graph_objs as go
 from django.shortcuts import render
 
 def stock_chart(request):
-    stock = yf.Ticker("AAPL")
-    hist = stock.history(period="1mo")  # Último mes
+    ticker = request.GET.get("ticker", "AAPL")  # Usar "AAPL" por defecto si no se ingresa nada
+    stock = yf.Ticker(ticker)
+    hist = stock.history(period="1mo")
 
-    # Crear gráfico con Plotly
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=hist.index, y=hist["Close"], mode='lines', name='Cierre'))
 
-    fig.update_layout(title="Precio de cierre - AAPL (último mes)",
+    fig.update_layout(title=f"Precio de cierre - {ticker.upper()} (último mes)",
                       xaxis_title="Fecha",
                       yaxis_title="Precio (USD)")
 
-    # Convertir gráfico en HTML
     chart = fig.to_html(full_html=False)
 
-    return render(request, "dashboard/stock_chart.html", {"chart": chart})
+    return render(request, "dashboard/stock_chart.html", {"chart": chart, "ticker": ticker})
+
