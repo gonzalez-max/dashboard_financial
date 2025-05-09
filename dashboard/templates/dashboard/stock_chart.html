@@ -7,13 +7,26 @@
     <h1>Gráfico de Acción</h1>
 
     <form method="get">
-        <label for="ticker">Símbolo:</label>
-        <input type="text" id="ticker" name="ticker" value="{{ ticker }}">
-        <button type="submit">Buscar</button>
+        <label for="ticker">Ticker:</label>
+        <input type="text" name="ticker" value="{{ ticker }}" placeholder="Ej: AAPL, TSLA, MELI" required>
+    
+        <label for="period">Periodo:</label>
+        <select name="period">
+            <option value="1d" {% if period == "1d" %}selected{% endif %}>1 Día</option>
+            <option value="1mo" {% if period == "1mo" %}selected{% endif %}>1 Mes</option>
+            <option value="1y" {% if period == "1y" %}selected{% endif %}>1 Año</option>
+        </select>
+    
+        <button type="submit">Actualizar</button>
     </form>
 
     <div style="margin-top: 30px;">
-        {{ chart|safe }}
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% else %}
+            {{ chart|safe }}
+        {% endif %}
     </div>
+    
 </body>
 </html>
