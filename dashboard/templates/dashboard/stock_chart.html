@@ -12,10 +12,12 @@
     
         <label for="period">Periodo:</label>
         <select name="period">
-            <option value="1d" {% if period == "1d" %}selected{% endif %}>1 Día</option>
-            <option value="1mo" {% if period == "1mo" %}selected{% endif %}>1 Mes</option>
-            <option value="1y" {% if period == "1y" %}selected{% endif %}>1 Año</option>
+            <option value="1d" {% if timeframe == "1d" %}selected{% endif %}>1 Día</option>
+            <option value="1wk" {% if timeframe == "1wk" %}selected{% endif %}>1 Semana</option>
+            <option value="1mo" {% if timeframe == "1mo" %}selected{% endif %}>1 Mes</option>
+            <option value="1y" {% if timeframe == "1y" %}selected{% endif %}>1 Año</option>
         </select>
+
     
         <button type="submit">Actualizar</button>
     </form>

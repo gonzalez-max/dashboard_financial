@@ -8,9 +8,10 @@ def stock_chart(request):
 
     # Configurar temporalidades con su periodo + intervalo
     timeframe_config = {
-        "1d": {"period": "1y", "interval": "1d"},    # Velas diarias para un mes
-        "1mo": {"period": "5y", "interval": "1mo"},   # Velas mensuales para un año
-        "1y": {"period": "10y", "interval": "1mo"}     # Velas mensuales para cinco años
+        "1d": {"period": "max", "interval": "1d"},
+        "1wk":{"period": "max", "interval": "1wk"},    
+        "1mo": {"period": "max", "interval": "1mo"},  
+        "1y": {"period": "max", "interval": "1mo"}     
     }
 
     if timeframe not in timeframe_config:
@@ -21,6 +22,7 @@ def stock_chart(request):
     try:
         stock = yf.Ticker(ticker)
         hist = stock.history(period=config["period"], interval=config["interval"])
+        company_name = stock.info.get("longName","")
 
         if hist.empty:
             raise ValueError("No se encontraron datos para ese ticker o período.")
@@ -37,13 +39,16 @@ def stock_chart(request):
         )])
 
         fig.update_layout(
-            title=f"Gráfico de Velas - {ticker} ({timeframe})",
+            title=f"{company_name} - {ticker} ({timeframe})",
             xaxis_title="Fecha",
             yaxis_title="Precio (USD)",
-            xaxis_rangeslider_visible=False
+            xaxis_rangeslider_visible=False,
+            dragmode="pan",
+            xaxis=dict(fixedrange=False),
+            yaxis=dict(fixedrange=False)
         )
 
-        chart = fig.to_html(full_html=False)
+        chart = fig.to_html(full_html=False, config={"scrollZoom": True})
         return render(request, "dashboard/stock_chart.html", {
             "chart": chart,
             "ticker": ticker,
