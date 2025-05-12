@@ -28,6 +28,16 @@
             {{ chart|safe }}
         {% endif %}
     </div>
-    
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        function updateCandleWidth(newWidth) {
+            document.getElementById("candleWidthValue").innerText = newWidth;
+
+            const plotId = document.querySelector(".plotly-graph-div")?.id;
+            if (!plotId) return;
+
+            Plotly.restyle(plotId, {'width': [parseFloat(newWidth)]}, [0]);
+        }
+    </script>
 </body>
 </html>

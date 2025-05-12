@@ -35,7 +35,7 @@ def stock_chart(request):
             open=hist['Open'],
             high=hist['High'],
             low=hist['Low'],
-            close=hist['Close']
+            close=hist['Close'],
         )])
 
         fig.update_layout(
@@ -47,15 +47,20 @@ def stock_chart(request):
             xaxis=dict(fixedrange=False),
             yaxis=dict(fixedrange=False),
             autosize=False,
-            width=1200,  # Aumenta el ancho
-            height=600
+            width=1020,  # Aumenta el ancho
+            height=500,
+           
         )
 
-        chart = fig.to_html(full_html=False, config={"scrollZoom": True})
+        chart = fig.to_html(full_html=False,
+                            config={"scrollZoom": True,
+                                    "modeBarButtonsToAdd": ["drawline", "drawopenpath", "drawrect", "drawcircle", "eraseshape"],
+                                    "modeBarButtonsToRemove": ["lasso2d"]})
+        
         return render(request, "dashboard/stock_chart.html", {
             "chart": chart,
             "ticker": ticker,
-            "timeframe": timeframe
+            "timeframe": timeframe,
         })
 
     except Exception as e:
