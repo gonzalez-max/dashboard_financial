@@ -6,21 +6,20 @@
 <body>
     <h1>Gráfico de Acción</h1>
 
-    <form method="get">
-        <label for="ticker">Ticker:</label>
-        <input type="text" name="ticker" value="{{ ticker }}" placeholder="Ej: AAPL, TSLA, MELI" required>
+    <form method="get" id="stock-form">
+    <label for="ticker">Ticker:</label>
+    <input type="text" name="ticker" value="{{ ticker }}" placeholder="Ej: AAPL, TSLA, MELI" required>
     
-        <label for="period">Periodo:</label>
-        <select name="period">
-            <option value="1d" {% if timeframe == "1d" %}selected{% endif %}>1 Día</option>
-            <option value="1wk" {% if timeframe == "1wk" %}selected{% endif %}>1 Semana</option>
-            <option value="1mo" {% if timeframe == "1mo" %}selected{% endif %}>1 Mes</option>
-            <option value="1y" {% if timeframe == "1y" %}selected{% endif %}>1 Año</option>
-        </select>
+    <label for="period">Periodo:</label>
+    <select name="period" onchange="document.getElementById('stock-form').submit();">
+        <option value="1d" {% if timeframe == "1d" %}selected{% endif %}>1 Día</option>
+        <option value="1wk" {% if timeframe == "1wk" %}selected{% endif %}>1 Semana</option>
+        <option value="1mo" {% if timeframe == "1mo" %}selected{% endif %}>1 Mes</option>
+        <option value="1y" {% if timeframe == "1y" %}selected{% endif %}>1 Año</option>
+    </select>
 
-    
-        <button type="submit">Actualizar</button>
-    </form>
+</form>
+
 
     <div style="margin-top: 30px;">
         {% if error %}

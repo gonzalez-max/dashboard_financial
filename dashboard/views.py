@@ -45,7 +45,10 @@ def stock_chart(request):
             xaxis_rangeslider_visible=False,
             dragmode="pan",
             xaxis=dict(fixedrange=False),
-            yaxis=dict(fixedrange=False)
+            yaxis=dict(fixedrange=False),
+            autosize=False,
+            width=1200,  # Aumenta el ancho
+            height=600
         )
 
         chart = fig.to_html(full_html=False, config={"scrollZoom": True})
