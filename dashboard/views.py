@@ -1,71 +1,41 @@
 from django.shortcuts import render
-import yfinance as yf
-import plotly.graph_objects as go
 
 def stock_chart(request):
     ticker = request.GET.get("ticker", "AAPL").upper()
     timeframe = request.GET.get("period", "1mo")
 
-    # Configurar temporalidades con su periodo + intervalo
-    timeframe_config = {
-        "1d": {"period": "max", "interval": "1d"},
-        "1wk":{"period": "max", "interval": "1wk"},    
-        "1mo": {"period": "max", "interval": "1mo"},  
-        "1y": {"period": "max", "interval": "1mo"}     
+    # Mapeo para intervalos compatibles con TradingView
+    interval_map = {
+        "1d": "D",
+        "1wk": "W",
+        "1mo": "M",
+        "1y": "D",  # Podés usar "W" también si preferís
     }
 
-    if timeframe not in timeframe_config:
-        timeframe = "1mo"  # Valor por defecto
+    if timeframe not in interval_map:
+        timeframe = "1mo"
 
-    config = timeframe_config[timeframe]
+    interval = interval_map[timeframe]
 
     try:
+        # Verificamos que el ticker exista mínimamente con yfinance
+        import yfinance as yf
         stock = yf.Ticker(ticker)
-        hist = stock.history(period=config["period"], interval=config["interval"])
-        company_name = stock.info.get("longName","")
+        hist = stock.history(period="1mo")  # Consulta rápida para verificar validez
+        company_name = stock.info.get("longName", "")
 
         if hist.empty:
-            raise ValueError("No se encontraron datos para ese ticker o período.")
+            raise ValueError("No se encontraron datos para ese ticker.")
 
-        if hasattr(hist.index, 'tz_convert'):
-            hist.index = hist.index.tz_localize(None)
-
-        fig = go.Figure(data=[go.Candlestick(
-            x=hist.index,
-            open=hist['Open'],
-            high=hist['High'],
-            low=hist['Low'],
-            close=hist['Close'],
-        )])
-
-        fig.update_layout(
-            title=f"{company_name} - {ticker} ({timeframe})",
-            xaxis_title="Fecha",
-            yaxis_title="Precio (USD)",
-            xaxis_rangeslider_visible=False,
-            dragmode="pan",
-            xaxis=dict(fixedrange=False),
-            yaxis=dict(fixedrange=False),
-            autosize=False,
-            width=1020,  # Aumenta el ancho
-            height=500,
-           
-        )
-
-        chart = fig.to_html(full_html=False,
-                            config={"scrollZoom": True,
-                                    "modeBarButtonsToAdd": ["drawline", "drawopenpath", "drawrect", "drawcircle", "eraseshape"],
-                                    "modeBarButtonsToRemove": ["lasso2d"]})
-        
         return render(request, "dashboard/stock_chart.html", {
-            "chart": chart,
             "ticker": ticker,
-            "timeframe": timeframe,
+            "interval": interval,
+            "company_name": company_name,
         })
 
     except Exception as e:
         return render(request, "dashboard/stock_chart.html", {
             "error": f"No se pudo cargar el gráfico: {str(e)}",
             "ticker": ticker,
-            "timeframe": timeframe
+            "interval": interval,
         })
