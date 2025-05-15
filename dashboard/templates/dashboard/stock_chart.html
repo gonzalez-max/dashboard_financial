@@ -96,8 +96,19 @@
             "popup_height": "500"
         });
     </script>
-</div>
 
+</div>
+<h2><strong>Ultimas noticias:</strong> {{ company_name }}</h2>
+    <ul>
+    {% for item in news %}
+    <li>
+      <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>
+      <small>{{ item.published }}</small>
+    </li>
+  {% empty %}
+    <li>No hay noticias disponibles.</li>
+  {% endfor %}
+</ul>
 
 </body>
 </html>
