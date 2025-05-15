@@ -2,6 +2,7 @@ from django.shortcuts import render
 import yfinance as yf
 import feedparser  # Importamos feedparser
 
+
 def get_news(ticker):
     # Noticias de Google News en español para el ticker + "acciones"
     feed_url = f"https://news.google.com/rss/search?q={ticker}+acciones&hl=es-419&gl=AR&ceid=AR:es"
