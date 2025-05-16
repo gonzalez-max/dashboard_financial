@@ -3,6 +3,32 @@ import yfinance as yf
 import requests
 import os
 from dotenv import load_dotenv
+from django.http import JsonResponse
+from django.conf import settings
+
+
+def autocomplete_ticker(request):
+    query = request.GET.get('query', '')
+    if not query:
+        return JsonResponse([], safe=False)
+
+    url = f'https://finnhub.io/api/v1/search?q={query}&token={settings.FINNHUB_API_KEY}'
+    response = requests.get(url)
+    results = response.json().get('result', [])
+
+    suggestions = [
+        {
+            'symbol': r['symbol'],
+            'description': r['description']
+        }
+        for r in results if r['symbol'] and r['description']
+    ]
+
+    return JsonResponse(suggestions, safe=False)
+
+
+
+
 
 # Cargamos variables de entorno
 load_dotenv()
@@ -16,7 +42,7 @@ def get_company_name(ticker):
     data = response.json()
     return data.get("name", "")  # Devuelve "" si no encuentra nombre
 
-
+# noticias 
 def get_news_finnhub(ticker):
     """Devuelve una lista de noticias para el ticker"""
     url = f"https://finnhub.io/api/v1/company-news?symbol={ticker}&from=2023-01-01&to=2025-12-31&token={FINNHUB_API_KEY}"
@@ -33,7 +59,7 @@ def get_news_finnhub(ticker):
 
     return news_items
 
-
+# buscador de ticker 
 def stock_chart(request):
     ticker = request.GET.get("ticker", "AAPL").upper()
     timeframe = request.GET.get("period", "1mo")

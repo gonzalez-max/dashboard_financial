@@ -7,6 +7,13 @@ body {
         h1 {
             text-align: center;
         }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px; /* Espaciado entre Ticker y Periodo */
+        }
+        
         form {
             display: flex;
             justify-content: center;
@@ -14,10 +21,17 @@ body {
             gap: 15px;
             flex-wrap: wrap;
         }
-        input, select {
+        input{
             padding: 8px;
-            border-radius: 5px;
+            border-radius: 15px;
             border: 1px solid #ccc;
+            cursor:text
+        }
+        select {
+            padding: 8px;
+            border-radius: 15px;
+            border: 1px solid #ccc;
+            cursor:pointer;
         }
         button {
             background-color: #e74c3c;
@@ -25,7 +39,7 @@ body {
             padding: 8px 16px;
             border: none;
             border-radius: 4px;
-            cursor: pointer;
+            
         }
         button:hover {
             background-color: #c0392b;
@@ -80,4 +94,32 @@ body {
         top: 10px;
         right: 10px;
     }
+}
+
+#suggestions {
+  position: absolute;
+  background-color: rgba(54, 106, 164, 0.8);
+  border: 1px solid black;
+  border-radius: 15px;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 999;
+  top: 100%;
+  left: 0;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+}
+
+#suggestions div {
+  padding: 8px;
+  cursor: pointer;
+}
+
+#suggestions div:hover {
+  background-color: white;
+  color: black;
+  border-radius: 15px;
+  
 }
