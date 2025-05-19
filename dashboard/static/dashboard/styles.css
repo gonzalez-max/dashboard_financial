@@ -32,6 +32,8 @@ body {
             border-radius: 15px;
             border: 1px solid #ccc;
             cursor:pointer;
+            margin-left: 5px;
+
         }
         button {
             background-color: #e74c3c;
@@ -95,11 +97,10 @@ body {
         right: 10px;
     }
 }
-
+/* sugerencias o autorrelleno*/
 #suggestions {
   position: absolute;
   background-color: rgba(54, 106, 164, 0.8);
-  border: 1px solid black;
   border-radius: 15px;
   width: 100%;
   max-height: 200px;
@@ -108,7 +109,7 @@ body {
   top: 100%;
   left: 0;
   font-size: 14px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  
 
 }
 
@@ -122,4 +123,84 @@ body {
   color: black;
   border-radius: 15px;
   
+}
+
+/* Estilos del Toggle Switch */
+.switch {
+  position: fixed;
+  top: 30px;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  z-index: 1000;
+  right: 100px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+  font-size: 12px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+/* 🌞 Modo Claro (por defecto) */
+body.light-mode {
+  background: radial-gradient(circle, rgba(117, 55, 153, 1) 0%, rgba(80, 98, 163, 1) 51%, rgba(28, 115, 166, 1) 100%);
+  color: white;
+}
+
+/* 🌚 Modo Oscuro */
+body.dark-mode {
+  background: radial-gradient(circle,rgba(84, 84, 84, 1) 0%, rgba(0, 0, 0, 1) 100%);
+  color: #f1f1f1;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode button {
+  background-color: #222;
+  color: #f1f1f1;
+  border: 1px solid #555;
+}
+
+body.dark-mode li {
+  background-color: radial-gradient(circle,rgba(84, 84, 84, 1) 0%, rgba(0, 0, 0, 1) 100%);
+  color: #f1f1f1;
 }

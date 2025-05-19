@@ -9,6 +9,8 @@
 
     <h1>Gráfico de Acción</h1>
 
+    
+
     <form method="get" id="stock-form">
         <div style="position: relative; width: 300px; display: inline-block;">
             <label for="ticker">Ticker:</label>
@@ -18,7 +20,7 @@
         </div>
    
        
-    <div style="display: flex; flex-direction: column;"> 
+    <div style="display: flex; flex-direction: column; margin-left: 5px;"> 
         <label for="period">Periodo:</label>
         <select name="period" onchange="document.getElementById('stock-form').submit();">
             <option value="1d" {% if timeframe == "1d" %}selected{% endif %}>1 Día</option>
@@ -134,6 +136,30 @@
 
 </script>
 
+<script>
+  const toggle = document.getElementById('theme-toggle');
+  const body = document.body;
+
+  // Guardar preferencia del usuario
+  toggle.addEventListener('change', () => {
+    if (toggle.checked) {
+      body.classList.remove('light-mode');
+      body.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      body.classList.remove('dark-mode');
+      body.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+    }
+  });
+
+  // Al cargar la página, usar preferencia previa
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    body.classList.add(savedTheme + '-mode');
+    toggle.checked = savedTheme === 'dark';
+  });
+</script>
 
 
 </body>
