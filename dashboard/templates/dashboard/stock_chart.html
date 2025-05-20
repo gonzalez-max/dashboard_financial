@@ -4,12 +4,19 @@
     <title>Dashboard Financiero</title>
 {% load static %}
 <link rel="stylesheet" href="{% static 'dashboard/styles.css' %}">
+
 </head>
 <body>
 
     <h1>Gráfico de Acción</h1>
 
-    
+    <label class="switch">
+    <input type="checkbox" id="theme-toggle">
+    <span class="slider">
+        <span class="icon-moon">🌙</span>
+        <span class="icon-sun">🌞</span>
+    </span>
+    </label>
 
     <form method="get" id="stock-form">
         <div style="position: relative; width: 300px; display: inline-block;">
@@ -98,7 +105,7 @@
     tickerInput.addEventListener('input', debounce(async function () {
         const query = this.value.trim();
 
-        if (query.length < 3) {
+        if (query.length < 1) {
             suggestionsBox.innerHTML = '';
             return;
         }
@@ -135,6 +142,7 @@
     });
 
 </script>
+
 
 <script>
   const toggle = document.getElementById('theme-toggle');
