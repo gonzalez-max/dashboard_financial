@@ -1,8 +1,8 @@
 body {
             font-family: Arial, sans-serif;
             margin: 30px;
-            background: radial-gradient(circle, rgba(117, 55, 153, 1) 0%, rgba(80, 98, 163, 1) 51%, rgba(28, 115, 166, 1) 100%);
-            color: white;
+            background: radial-gradient(circle,rgba(186, 219, 255, 1) 0%, rgba(250, 250, 250, 1) 100%);
+            color: black
         }
         h1 {
             text-align: center;
@@ -79,7 +79,7 @@ body {
         padding: 0;
     }
     li {
-        background-color: #fff;
+        background-color: rgba(171, 171, 171, 0.5) ;
         margin: 10px 0;
         padding: 15px;
         border-radius: 5px;
@@ -87,7 +87,7 @@ body {
     }
     li a {
         text-decoration: none;
-        color: #2980b9;
+        color: black;
         font-weight: bold;
     }
     li small {
@@ -198,8 +198,8 @@ input:checked + .slider:before {
 
 /* 🌞 Modo Claro (por defecto) */
 body.light-mode {
-  background: radial-gradient(circle, rgba(117, 55, 153, 1) 0%, rgba(80, 98, 163, 1) 51%, rgba(28, 115, 166, 1) 100%);
-  color: white;
+  background: radial-gradient(circle,rgba(186, 219, 255, 1) 0%, rgba(250, 250, 250, 1) 100%);
+  color: black;
 }
 
 /* 🌚 Modo Oscuro */
@@ -221,4 +221,8 @@ body.dark-mode li {
   color: #f1f1f1;
 }
 
-
+body.dark-mode li a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+    }
