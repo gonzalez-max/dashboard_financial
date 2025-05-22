@@ -1,189 +1,183 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Financiero</title>
-{% load static %}
-<link rel="stylesheet" href="{% static 'dashboard/styles.css' %}">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-</head>
-<body>
     
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'dashboard/styles.css' %}">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
     <header>
-        <nav class="navbar">  
-        <div>
-            <ul>
-                <li class="nav-item"><a href="#">Inicio</a></li>
-                <li class="nav-item"><a href="#">Gráfico</a></li>
-                <li class="nav-item"><a href="#">Contacto</a></li>
-            </ul>
-        </div>
+        <nav class="navbar">
+            <div>
+                <ul>
+                    <li class="nav-item"><a href="#">Inicio</a></li>
+                    <li class="nav-item"><a href="#">Gráfico</a></li>
+                    <li class="nav-item"><a href="#">Contacto</a></li>
+                </ul>
+            </div>
         </nav>
     </header>
     
-<h1>Gráfico de Acción</h1>
+    <main class="container">
+        <h1>Gráfico de Acción</h1>
 
-    <label class="switch">
-    <input type="checkbox" id="theme-toggle">
-    <span class="slider">
-        <span class="icon-moon">🌙</span>
-        <span class="icon-sun">🌞</span>
-    </span>
-    </label>
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle"  aria-label="Alternar entre modo claro y oscuro">
+            <span class="slider">
+                <span class="icon-moon">🌙</span>
+                <span class="icon-sun">🌞</span>
+            </span>
+        </label>
 
-    <form method="get" id="stock-form">
-        <div style="position: relative; width: 300px; display: inline-block;">
-            <label for="ticker">Ticker:</label>
-            <input type="text" id="ticker" name="ticker" placeholder="Ej: AAPL, TSLA, MELI" autocomplete="on" 
-            required style="width: 100%;" value="{{ ticker }}">
-            <div id="suggestions"></div>
+        <form method="get" id="stock-form">
+            <div style="position: relative; width: 300px; display: inline-block;">
+                <label for="ticker">Ticker:</label>
+                <input type="text" id="ticker" name="ticker" placeholder="Ej: AAPL, TSLA, MELI" autocomplete="on"
+                    required style="width: 100%;" value="{{ ticker }}">
+                <div id="suggestions"></div>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; margin-left: 5px;">
+                <label for="period">Periodo:</label>
+                <select name="period" onchange="document.getElementById('stock-form').submit();">
+                    <option value="1d" {% if timeframe == "1d" %}selected{% endif %}>1 Día</option>
+                    <option value="1wk" {% if timeframe == "1wk" %}selected{% endif %}>1 Semana</option>
+                    <option value="1mo" {% if timeframe == "1mo" %}selected{% endif %}>1 Mes</option>
+                    <option value="1y" {% if timeframe == "1y" %}selected{% endif %}>1 Año</option>
+                </select>
+            </div>
+        </form>
+
+        <h2><strong>Gráfico de:</strong> {{ company_name }}</h2>
+
+        <div class="chart-container" style="height: 500px; width: 95%;">
+            <!-- Widget de TradingView -->
+            <div id="tradingview-widget" style="width: 100%; height: 100%;"></div>
+
+            <!-- Primero cargás la librería -->
+            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
+            <!-- Luego, instanciás el widget -->
+            <script type="text/javascript">
+                new TradingView.widget({
+                    "container_id": "tradingview-widget",
+                    "autosize": true,
+                    "symbol": "NASDAQ:{{ ticker }}",
+                    "interval": "{{ interval }}",
+                    "timezone": "Etc/UTC",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "es",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "save_image": false,
+                    "hide_side_toolbar": false,
+                    "show_popup_button": true,
+                    "popup_width": "1020",
+                    "popup_height": "500"
+                });
+            </script>
         </div>
-   
-       
-    <div style="display: flex; flex-direction: column; margin-left: 5px;"> 
-        <label for="period">Periodo:</label>
-        <select name="period" onchange="document.getElementById('stock-form').submit();">
-            <option value="1d" {% if timeframe == "1d" %}selected{% endif %}>1 Día</option>
-            <option value="1wk" {% if timeframe == "1wk" %}selected{% endif %}>1 Semana</option>
-            <option value="1mo" {% if timeframe == "1mo" %}selected{% endif %}>1 Mes</option>
-            <option value="1y" {% if timeframe == "1y" %}selected{% endif %}>1 Año</option>
-        </select>
-    </div>
-    
-    </form>
 
-    <h2><strong>Grafico de:</strong> {{ company_name }}</h2>
-    
+        <h2><strong>Últimas noticias:</strong> {{ company_name }}</h2>
+        <ul class="news-list">
+            {% for item in news %}
+                <li>
+                    <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>
+                    <small>{{ item.published }}</small>
+                </li>
+            {% empty %}
+                <li>No hay noticias disponibles.</li>
+            {% endfor %}
+        </ul>
+    </main>
 
-    <div class="chart-container" style="height: 500px; width: 100%;">
-    <!-- Widget de TradingView -->
-    <div id="tradingview-widget" style="width: 100%; height: 100%;"></div>
+    <script>
+        const tickerInput = document.getElementById('ticker');
+        const suggestionsBox = document.getElementById('suggestions');
 
-    <!-- Primero cargás la librería -->
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        // Función debounce para evitar múltiples requests
+        function debounce(func, delay) {
+            let timeout;
+            return function (...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), delay);
+            };
+        }
 
-    <!-- Luego, instanciás el widget -->
-    <script type="text/javascript">
-        new TradingView.widget({
-            "container_id": "tradingview-widget",
-            "autosize": true,
-            "symbol": "NASDAQ:{{ ticker }}",
-            "interval": "{{ interval }}",
-            "timezone": "Etc/UTC",
-            "theme": "dark",
-            "style": "1",
-            "locale": "es",
-            "toolbar_bg": "#f1f3f6",
-            "enable_publishing": false,
-            "allow_symbol_change": true,
-            "save_image": false,
-            "hide_side_toolbar": false,
-            "show_popup_button": true,
-            "popup_width": "1020",
-            "popup_height": "500"
+        // Evento input con debounce
+        tickerInput.addEventListener('input', debounce(async function () {
+            const query = this.value.trim();
+
+            if (query.length < 1) {
+                suggestionsBox.innerHTML = '';
+                return;
+            }
+
+            suggestionsBox.innerHTML = '<div>Cargando...</div>';
+
+            try {
+                const response = await fetch(`/autocomplete/?query=${query}`);
+                const data = await response.json();
+
+                suggestionsBox.innerHTML = '';
+                data.slice(0, 3).forEach(item => {
+                    const div = document.createElement('div');
+                    div.textContent = `${item.symbol} - ${item.description}`;
+                    div.style.padding = '8px';
+                    div.style.cursor = 'pointer';
+                    div.addEventListener('click', () => {
+                        tickerInput.value = item.symbol;
+                        suggestionsBox.innerHTML = '';
+                    });
+                    suggestionsBox.appendChild(div);
+                });
+            } catch (error) {
+                suggestionsBox.innerHTML = '<div>Error al buscar</div>';
+                console.error(error);
+            }
+        }, 200)); // 300 ms de espera
+
+        // Ocultar sugerencias al hacer clic fuera
+        document.addEventListener('click', function (e) {
+            if (!suggestionsBox.contains(e.target) && e.target !== tickerInput) {
+                suggestionsBox.innerHTML = '';
+            }
         });
     </script>
 
-</div>
-<h2><strong>Ultimas noticias:</strong> {{ company_name }}</h2>
-    <ul>
-    {% for item in news %}
-    <li>
-      <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>
-      <small>{{ item.published }}</small>
-    </li>
-  {% empty %}
-    <li>No hay noticias disponibles.</li>
-  {% endfor %}
-</ul>
+    <script>
+        const toggle = document.getElementById('theme-toggle');
+        const body = document.body;
 
+        // Guardar preferencia del usuario
+        toggle.addEventListener('change', () => {
+            if (toggle.checked) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            }
+        });
 
-
-
-<script>
-    
-    const tickerInput = document.getElementById('ticker');
-    const suggestionsBox = document.getElementById('suggestions');
-
-    // Función debounce para evitar múltiples requests
-    function debounce(func, delay) {
-        let timeout;
-        return function (...args) {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(this, args), delay);
-        };
-    }
-
-    // Evento input con debounce
-    tickerInput.addEventListener('input', debounce(async function () {
-        const query = this.value.trim();
-
-        if (query.length < 1) {
-            suggestionsBox.innerHTML = '';
-            return;
-        }
-
-        suggestionsBox.innerHTML = '<div>Cargando...</div>';
-
-        try {
-            const response = await fetch(`/autocomplete/?query=${query}`);
-            const data = await response.json();
-
-            suggestionsBox.innerHTML = '';
-            data.slice(0, 3).forEach(item => {
-                const div = document.createElement('div');
-                div.textContent = `${item.symbol} - ${item.description}`;
-                div.style.padding = '8px';
-                div.style.cursor = 'pointer';
-                div.addEventListener('click', () => {
-                    tickerInput.value = item.symbol;
-                    suggestionsBox.innerHTML = '';
-                });
-                suggestionsBox.appendChild(div);
-            });
-        } catch (error) {
-            suggestionsBox.innerHTML = '<div>Error al buscar</div>';
-            console.error(error);
-        }
-    }, 200)); // 300 ms de espera
-
-    // Ocultar sugerencias al hacer clic fuera
-    document.addEventListener('click', function (e) {
-        if (!suggestionsBox.contains(e.target) && e.target !== tickerInput) {
-            suggestionsBox.innerHTML = '';
-        }
-    });
-
-</script>
-
-
-<script>
-  const toggle = document.getElementById('theme-toggle');
-  const body = document.body;
-
-  // Guardar preferencia del usuario
-  toggle.addEventListener('change', () => {
-    if (toggle.checked) {
-      body.classList.remove('light-mode');
-      body.classList.add('dark-mode');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      body.classList.remove('dark-mode');
-      body.classList.add('light-mode');
-      localStorage.setItem('theme', 'light');
-    }
-  });
-
-  // Al cargar la página, usar preferencia previa
-  window.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    body.classList.add(savedTheme + '-mode');
-    toggle.checked = savedTheme === 'dark';
-  });
-</script>
-
-
+        // Al cargar la página, usar preferencia previa
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.classList.add(savedTheme + '-mode');
+            toggle.checked = savedTheme === 'dark';
+        });
+    </script>
 </body>
 </html>

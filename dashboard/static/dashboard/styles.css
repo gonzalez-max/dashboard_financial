@@ -3,11 +3,12 @@ body {
             margin: 0;
             background: radial-gradient(circle,rgba(186, 219, 255, 1) 0%, rgba(250, 250, 250, 1) 100%);
             color: black;
-            max-width: 1200px;
             width:100%;
             align-items: center;
             justify-content: center;
-            padding-top: 80px; 
+            padding-top: 80px;
+            flex-direction: column;
+            
         }
         h1 {
             text-align: center;
@@ -24,7 +25,16 @@ body {
             font-weight: normal;
             margin-bottom: 10px;
         }
-
+        
+        .container {
+            width: 100%;  
+            margin: 0 auto;
+            padding: 0 20px;
+            max-width: 1200px;
+            align-items: center;
+            justify-content: center;
+          
+        }
 
         .form-group {
             display: flex;
@@ -67,18 +77,19 @@ body {
         .navbar {
             display: flex;
             align-items: center;
-            background-color: rgba(171, 171, 171, 0.5);
+            background-color: rgba(170, 170, 170, 0.5);
             padding: 1em;
             justify-content: center;
             width: 100%;
-            height: 20px;
+            height: 5px;
             position: fixed;
             z-index: 1000;
             top: 0px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin: 0;
+            transition: background-color 0.3s ease;
         }
 
         /* Links del navbar */
@@ -97,9 +108,8 @@ body {
             text-decoration: none;
             padding: 8px 16px;
             border-radius: 8px;
-            background: none;           /* Quita cualquier fondo */
-            box-shadow: none;           /* Quita sombra */
-            border: none;               /* Asegura que no haya bordes */
+            align-items: center;
+            justify-content: center; 
         }
 
         .navbar ul li a:hover {
@@ -107,18 +117,7 @@ body {
         }
 
 
-        button {
-            background-color: #e74c3c;
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            max-width: 00px;
-            
-        }
-        button:hover {
-            background-color: #c0392b;
-        }
+        
         .chart-container {
             margin-top: 30px;
             display: flex;
@@ -138,11 +137,10 @@ body {
         padding: 0;
     }
     li {
-        background-color: rgba(171, 171, 171, 0.5) ;
         margin: 10px 0;
         padding: 15px;
         border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        
     }
     li a {
         text-decoration: none;
@@ -153,6 +151,15 @@ body {
         display: block;
         color: #888;
         margin-top: 5px;
+    }
+
+
+    .news-list li{
+        background-color: rgba(171, 171, 171, 0.5) ;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
 @media (max-width: 800px) {
@@ -204,13 +211,13 @@ body {
 /* Estilos del Toggle Switch */
 .switch {
   position: fixed;
-  top: 30px;
+  top: 0px;
   display: inline-block;
   width: 50px;
   height: 26px;
   z-index: 1000;
   right: 100px;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 .switch input {
@@ -226,7 +233,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: darkgray;
   transition: 0.4s;
   border-radius: 26px;
   display: flex;
@@ -278,7 +285,7 @@ body.dark-mode button {
 }
 
 body.dark-mode li {
-  background-color: radial-gradient(circle,rgba(84, 84, 84, 1) 0%, rgba(0, 0, 0, 1) 100%);
+  background-color: rgba(84, 84, 84, 0.7);
   color: #f1f1f1;
 }
 
@@ -287,3 +294,22 @@ body.dark-mode li a {
         color: white;
         font-weight: bold;
     }
+
+body.dark-mode .navbar {
+  background-color: rgba(84, 84, 84, 0.7);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* Ítems del navbar en modo oscuro */
+body.dark-mode .nav-item {
+  color: white;
+  background: none;
+  box-shadow: none;
+}
+
+/* Hover en modo oscuro */
+body.dark-mode .navbar ul li a:hover {
+  color: #1e90ff;
+}
