@@ -70,7 +70,7 @@
                 new TradingView.widget({
                     "container_id": "tradingview-widget",
                     "autosize": true,
-                    "symbol": "NASDAQ:{{ ticker }}",
+                    "symbol": "{{ ticker }}",
                     "interval": "{{ interval }}",
                     "timezone": "Etc/UTC",
                     "theme": "dark",
@@ -103,8 +103,8 @@
 
 <footer class="footer">
   <div class="footer-content">
-    <a href="https://tu-portfolio.com" target="_blank">Mi Portfolio</a>
-    <a href="https://tus-cursos-trading.com" target="_blank">Cursos de Trading</a>
+    <a href="https://mi-web-neon-book.reflex.run/" target="_blank">Mi Portfolio</a>
+    <a href="https://mi-web-neon-book.reflex.run/financial_page/" target="_blank">Cursos de Trading</a>
   </div>
 </footer> 
 
@@ -147,6 +147,7 @@
                     div.addEventListener('click', () => {
                         tickerInput.value = item.symbol;
                         suggestionsBox.innerHTML = '';
+                        window.location.href = `/?ticker=${item.symbol}`;
                     });
                     suggestionsBox.appendChild(div);
                 });

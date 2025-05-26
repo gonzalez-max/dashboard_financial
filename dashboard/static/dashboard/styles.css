@@ -79,7 +79,8 @@ body {
         .navbar {
             display: flex;
             align-items: center;
-            background-color: rgba(170, 170, 170, 0.5);
+            background-color: rgba(170, 170, 170, 0.3);
+            box-shadow: #222;
             padding: 1em;
             justify-content: center;
             width: 100%;
@@ -87,11 +88,11 @@ body {
             position: fixed;
             z-index: 1000;
             top: 0px;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin: 0;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.5s ease;
         }
 
         /* Links del navbar */
@@ -104,14 +105,17 @@ body {
         }
 
         .nav-item{
+            font-family: Arial, Helvetica, sans-serif;
             color: black;
-            font-size: 16px;
-            font-weight: 500;
+            size: 3 ;
+            font-weight: 500 ;
             text-decoration: none;
             padding: 8px 16px;
             border-radius: 8px;
             align-items: center;
             justify-content: center; 
+            transition: color 0.2s ease;
+            
         }
 
         .navbar ul li a:hover {
@@ -137,6 +141,7 @@ body {
  ul {
         list-style-type: none;
         padding: 0;
+        
     }
     li {
         margin: 10px 0;
@@ -157,11 +162,12 @@ body {
 
 
     .news-list li{
-        background-color: rgba(171, 171, 171, 0.5) ;
+        background-color: rgba(171, 171, 171, 0.3) ;
         margin: 10px 0;
         padding: 15px;
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+       
     }
 
 
@@ -169,18 +175,19 @@ body {
             display:flex;
             align-items: center;
             background-color: rgba(170, 170, 170, 0.5);
-            padding: 20px 0;
+            padding: 15px 0;
             justify-content: center;
             width: 100%;
             position: static;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin: 0;
-            transition: background-color 0.3s ease;
+            transition: color 0.3s ease;
             box-sizing: border-box;
             overflow-x: hidden;
             flex-wrap: wrap;
+            margin-top: 100px;
     }
 
     .footer-content {
@@ -201,7 +208,7 @@ body {
 
     .footer a:hover {
         text-decoration: none;
-        color: #2196F3
+        color: #1e90ff
     }
 
 
@@ -343,10 +350,10 @@ body.dark-mode li a {
     }
 
 body.dark-mode .navbar {
-  background-color: rgba(84, 84, 84, 0.7);
+  background-color: rgba(84, 84, 84, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 /* Ítems del navbar en modo oscuro */
@@ -362,10 +369,10 @@ body.dark-mode .navbar ul li a:hover {
 }
 
 body.dark-mode .footer {
-  background-color: rgba(84, 84, 84, 0.7);
+  background-color: rgba(84, 84, 84, 0.3);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 body.dark-mode .footer-content {
