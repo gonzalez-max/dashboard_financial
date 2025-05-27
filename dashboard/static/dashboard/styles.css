@@ -6,7 +6,6 @@ body {
             width:100%;
             align-items: center;
             justify-content: center;
-            padding-top: 80px;
             flex-direction: column;
             overflow-x: hidden;
             overflow-y: auto;
@@ -37,6 +36,24 @@ body {
             justify-content: center;
           
         }
+        
+
+        header{
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 0.1em;
+            height: 30px; /* o el valor que ocupe tu navbar */
+            background-color: transparent; /* fondo semitransparente */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* sombra ligera */
+        }
+
 
         .form-group {
             display: flex;
@@ -81,10 +98,10 @@ body {
             align-items: center;
             background-color: rgba(170, 170, 170, 0.3);
             box-shadow: #222;
-            padding: 1em;
+            padding: 0.1em;
             justify-content: center;
             width: 100%;
-            height: 5px;
+            height: 30px;
             position: fixed;
             z-index: 1000;
             top: 0px;
@@ -136,6 +153,53 @@ body {
             right: 20px;
             z-index: 999;
         }
+
+    .hero {
+    height: 100vh;
+    color: black;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center; /* centra horizontalmente */
+    align-items: center;     /* centra verticalmente */
+    text-align: center;      /* centra el texto */
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: auto;
+    width: 100%; 
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 40px;
+    color: darkgray;
+}
+
+.cta-button {
+    background-color: #1e90ff;
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #0042f7;
+}
+
 
 
  ul {
@@ -390,3 +454,17 @@ body.dark-mode .footer a:hover {
         text-decoration: none;
         color: #2196F3
     }
+
+body.dark-mode .hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: white;
+}
+
+body.dark-mode .hero-subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 40px;
+    color: darkgray;
+}
