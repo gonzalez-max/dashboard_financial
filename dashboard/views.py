@@ -5,8 +5,41 @@ import os
 from dotenv import load_dotenv
 from django.http import JsonResponse
 from django.conf import settings
+from django.core.mail import send_mail
+from django.conf import settings
+from django.shortcuts import render, redirect
+from django.contrib import messages
 
 
+#codigo de formulario
+def contacto(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        email = request.POST.get('email')
+        mensaje = request.POST.get('mensaje')
+
+        # Armamos el contenido del correo
+        subject = f'Nuevo mensaje de {nombre}'
+        message = f'Nombre: {nombre}\nCorreo: {email}\n\nMensaje:\n{mensaje}'
+        from_email = settings.EMAIL_HOST_USER
+        recipient_list = [settings.CONTACT_EMAIL]  # Cambialo por tu correo real
+
+        # Enviamos el correo dentro de un bloque try/except
+        try:
+            send_mail(subject, message, from_email, recipient_list)
+            messages.success(request, '¡Tu mensaje fue enviado con éxito! Te responderemos pronto.')
+        except Exception as e:
+            # Mensaje de error para el usuario
+            messages.error(request, 'Ocurrió un error al enviar el mensaje. Por favor, intenta nuevamente más tarde.')
+            # Opcional: loguea el error para depuración
+            print(f"Error al enviar el correo: {e}")
+
+        return redirect('contacto')  # Redirigimos a la misma página o a otra
+
+    return render(request, 'contact/contact.html')
+
+
+#codigo de autocompletado 
 def autocomplete_ticker(request):
     query = request.GET.get('query', '')
     if not query:
