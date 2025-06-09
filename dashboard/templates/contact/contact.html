@@ -3,10 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <title>Contacto</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'dashboard/styles.css' %}">
+  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <section class="contacto-container">
+  
+  <header>
+        <nav class="navbar">
+            <div>
+                <ul>
+                    <li class="nav-item"><a href="/">Inicio</a></li>
+                    <li class="nav-item"><a href="#stock-form">Gráfico</a></li>
+                    <li class="nav-item"><a href="contacto/">Contacto</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Explorá los mercados con poderosas herramientas</h1>
+        <p class="hero-subtitle">Visualizá datos financieros en tiempo real y tomá decisiones informadas. Probá nuestro dashboard gratuito hoy mismo.</p>
+        <a href="#stock-form" class="cta-button">Empezar ahora</a>
+    </div>
+</section>
+
+<div class="glass-divider"></div>
+
+
+<section class="contacto-container">
     <h1>Contáctanos</h1>
+      <main class="container">
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle"  aria-label="Alternar entre modo claro y oscuro">
+            <span class="slider">
+                <span class="icon-moon">🌙</span>
+                <span class="icon-sun">🌞</span>
+            </span>
+        </label>
 
     {% if messages %}
       <ul class="messages">
@@ -30,5 +69,43 @@
       <button type="submit">Enviar</button>
     </form>
   </section>
+
+  <footer class="footer">
+  <div class="footer-content">
+    <a href="https://mi-web-neon-book.reflex.run/" target="_blank">Mi Portfolio</a>
+    <a href="https://mi-web-neon-book.reflex.run/financial_page/" target="_blank">Cursos de Trading</a>
+  </div>
+</footer> 
+
+
+
+
+
+
+
+<script>
+        const toggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Guardar preferencia del usuario
+        toggle.addEventListener('change', () => {
+            if (toggle.checked) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Al cargar la página, usar preferencia previa
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.classList.add(savedTheme + '-mode');
+            toggle.checked = savedTheme === 'dark';
+        });
+    </script>
 </body>
 </html>

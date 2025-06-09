@@ -31,6 +31,9 @@ body {
             letter-spacing: 1px;
         }
         
+       
+
+
         .container {
             width: 100%;  
             margin: 0 auto;
@@ -310,7 +313,7 @@ body {
 
 
 
-
+    
 
 
 @media (max-width: 800px) {
@@ -415,7 +418,28 @@ input:checked + .slider:before {
   transform: translateX(24px);
 }
 
+/*web de contacto*/
+.contacto-container {
+  max-width: 600px; /* o 600px según prefieras */
+  margin: 0 auto; /* centrado horizontal */
+  padding: 20px;
+  background-color: #f8f9fa; /* color de fondo más claro para resaltar */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
 
+
+.contacto-container input[type="text"],
+.contacto-container input[type="email"],
+.contacto-container textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
 
 /* 🌚 Modo Oscuro */
 body.dark-mode {
