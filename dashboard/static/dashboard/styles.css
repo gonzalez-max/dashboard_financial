@@ -10,7 +10,6 @@ body {
             overflow-x: hidden;
             overflow-y: auto;
             
-            
         }
         h1 {
             text-align: center;
@@ -179,10 +178,12 @@ body {
     text-align: center;
     font-family: 'Montserrat', sans-serif;
     display: flex;
-    justify-content: center; /* centra horizontalmente */
-    align-items: center;     /* centra verticalmente */
-    text-align: center;      /* centra el texto */
+    justify-content: center; 
+    align-items: center;     
+    text-align: center;      
     background: radial-gradient(circle,rgba(217, 135, 255, 1) 0%, rgba(161, 161, 255, 1) 40%, rgba(222, 235, 255, 1) 90%);
+    padding: 20px;
+    min-height: 100vh;
 }
 
 .hero-content {
@@ -270,7 +271,7 @@ body {
         color: #1e90ff;
     }
 
-
+    /*footer*/
     .footer {
             display:flex;
             align-items: center;
@@ -281,7 +282,7 @@ body {
             position: static;
             backdrop-filter: blur(3px);
             -webkit-backdrop-filter: blur(3px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border:1px solid #727272;
             margin: 0;
             transition: color 0.3s ease;
             box-sizing: border-box;
@@ -316,8 +317,31 @@ body {
     
 
 
-@media (max-width: 800px) {
-    
+@media (max-width: 500px) {
+  
+  .hero {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem; /* Ajustado para móvil */
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .cta-button {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+
+  .switch{
+    right: 10px;
+    top: 10px;
+  }
 
   form {
         flex-direction: column;
@@ -418,28 +442,94 @@ input:checked + .slider:before {
   transform: translateX(24px);
 }
 
-/*web de contacto*/
+/*_______________________web de contacto__________________________*/
 .contacto-container {
-  max-width: 600px; /* o 600px según prefieras */
-  margin: 0 auto; /* centrado horizontal */
-  padding: 20px;
-  background-color: #f8f9fa; /* color de fondo más claro para resaltar */
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 50px;
+  background-color: rgba(170, 170, 170, 0.4);; 
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  width: 100%;
+  margin-top: 50px;
+  
 }
 
 
 .contacto-container input[type="text"],
-.contacto-container input[type="email"],
-.contacto-container textarea {
-  width: 100%;
+.contacto-container input[type="email"] {
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  border: 1px solid #727272;
+  border-radius: 7px;
   font-size: 16px;
   box-sizing: border-box;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  width: 100%; 
+ 
+
 }
+
+
+.contacto-container textarea {
+  padding: 10px;
+  border: 1px solid #727272;
+  border-radius: 7px;
+  font-size: 16px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  width: 100%; 
+  resize: vertical;
+  min-height: 100px;
+ 
+}
+
+
+
+.contacto-container button {
+  background-color: black;
+    color: white;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    cursor:pointer;
+}
+
+.contacto-container button:hover {
+  background-color: white;
+    color: black; 
+}
+
+.contacto-container h1 {
+  text-align: center;
+  font-size: 40px;
+  color: black;
+  margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif!important;
+}
+
+.contacto-container label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /* 🌚 Modo Oscuro */
 body.dark-mode {
@@ -466,6 +556,7 @@ body.dark-mode li a {
         font-weight: bold;
     }
 
+/*_______________________nab-var darkmode__________________________*/
 body.dark-mode .navbar {
   background-color: rgba(84, 84, 84, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -491,6 +582,7 @@ body.dark-mode .navbar ul li a:hover {
   color: #1e90ff;
 }
 
+/*__________________footer dark-mode_________________*/
 body.dark-mode .footer {
   background-color: rgba(84, 84, 84, 0.3);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -514,11 +606,12 @@ body.dark-mode .footer a:hover {
         color: #2196F3
     }
 
-
+/*_______________header dark-mode_______________*/
 body.dark-mode .header{
     background: transparent;
 }
 
+/*_______________________hero dark-mode_______________________---*/
 body.dark-mode .hero{
     background: radial-gradient(circle,rgba(70, 13, 97, 1) 0%, rgba(32, 34, 99, 1) 47%, rgba(0, 0, 0, 1) 90%);
     color:white;
@@ -531,6 +624,7 @@ body.dark-mode .hero-subtitle {
 body.dark-mode .cta-button {
     background-color: white;
     color:black;
+    border-color: white;
 
 }
 
@@ -538,3 +632,39 @@ body.dark-mode .cta-button:hover {
     background-color: black;
     color: white;
 }
+
+
+/*___________________form darkmode________________-*/
+
+body.dark-mode .contacto-container {
+  background-color: rgba(84, 84, 84, 0.3);
+  border:1px solid #727272;
+}
+
+.contacto-container input[type="text"],
+.contacto-container input[type="email"] {
+  background: white;
+  color: black;
+}
+
+body.dark-mode .contacto-container h1 {
+  color:white
+}
+
+body.dark-mode .contacto-container label {
+  color:white;
+
+}
+
+
+body.dark-mode .contacto-container button {
+    background-color: white;
+    color:black;
+    border-color: white;
+}
+
+body.dark-mode .contacto-container button:hover {
+    background-color: black;
+    color: white;
+}
+

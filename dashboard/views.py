@@ -27,7 +27,7 @@ def contacto(request):
         # Enviamos el correo dentro de un bloque try/except
         try:
             send_mail(subject, message, from_email, recipient_list)
-            messages.success(request, '¡Tu mensaje fue enviado con éxito! Te responderemos pronto.')
+            messages.success(request, '¡Tu mensaje fue enviado con éxito!')
         except Exception as e:
             # Mensaje de error para el usuario
             messages.error(request, 'Ocurrió un error al enviar el mensaje. Por favor, intenta nuevamente más tarde.')
