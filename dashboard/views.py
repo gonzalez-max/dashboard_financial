@@ -15,14 +15,20 @@ from django.contrib import messages
 def contacto(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
+        asunto = request.POST.get('asunto') 
         email = request.POST.get('email')
         mensaje = request.POST.get('mensaje')
 
         # Armamos el contenido del correo
-        subject = f'Nuevo mensaje de {nombre}'
-        message = f'Nombre: {nombre}\nCorreo: {email}\n\nMensaje:\n{mensaje}'
+        subject = f'{asunto} - Mensaje de {nombre}'
+        message = f'Nombre: {nombre}\nCorreo: {email}\nAsunto: {asunto}\n\nMensaje:\n{mensaje}'
         from_email = settings.EMAIL_HOST_USER
-        recipient_list = [settings.CONTACT_EMAIL]  # Cambialo por tu correo real
+        recipient_list = [settings.CONTACT_EMAIL] 
+        
+        #campo oculto antibots 
+        telefono = request.POST.get('telefono')
+        if telefono:  # Si el bot llenó este campo oculto
+                    return redirect('contacto')  # Ignoramos el envío
 
         # Enviamos el correo dentro de un bloque try/except
         try:

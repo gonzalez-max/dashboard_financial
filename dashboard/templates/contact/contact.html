@@ -46,18 +46,28 @@
             </span>
         </label>
 
+   
+    
     {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
+  <div class="mensajes">
+    {% for message in messages %}
+      <div class="alerta {{ message.tags }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+    <input type="text" name="telefono" style="display:none">  
 
     <form method="post" action="">
       {% csrf_token %}
       <label for="nombre">Nombre:</label>
       <input type="text" id="nombre" name="nombre" required>
+      
+      <label for="asunto">Asunto:</label>
+      <input type="text" id="asunto" name="asunto" required>
 
       <label for="email">Correo electrónico:</label>
       <input type="email" id="email" name="email" required>
