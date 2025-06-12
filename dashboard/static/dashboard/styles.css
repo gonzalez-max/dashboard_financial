@@ -198,8 +198,8 @@ body {
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
-    font-weight: 400;
+    font-size: 1.3rem;
+    font-weight: 700;
     margin-bottom: 40px;
     color: rgb(32, 32, 32);
 }
@@ -212,7 +212,7 @@ body {
     border-radius: 30px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.2rem;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }

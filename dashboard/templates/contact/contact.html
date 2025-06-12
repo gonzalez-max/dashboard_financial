@@ -27,15 +27,16 @@
 
 <section class="hero">
     <div class="hero-content">
-        <h1 class="hero-title">Explorá los mercados con poderosas herramientas</h1>
-        <p class="hero-subtitle">Visualizá datos financieros en tiempo real y tomá decisiones informadas. Probá nuestro dashboard gratuito hoy mismo.</p>
+        <h1 class="hero-title">¿Tenés preguntas, ideas o comentarios? </h1>
+        <p class="hero-subtitle">Comunicate con nosotros.</p>
+        <a href="#contacto-container" class="cta-button">👇 Acá abajo 👇</a>
     </div>
 </section>
 
 <div class="glass-divider"></div>
 
 
-<section class="contacto-container">
+<section class="contacto-container" id="contacto-container">
     <h1>¡ Mandanos un correo !</h1>
       <main class="container">
         <label class="switch">
@@ -116,5 +117,21 @@
             toggle.checked = savedTheme === 'dark';
         });
     </script>
+
+    
+    <script>
+  setTimeout(() => {
+    const mensajes = document.querySelectorAll('.alerta');
+    mensajes.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(-10px)';
+      setTimeout(() => el.remove(), 500);
+    });
+  }, 5000); // se ocultan después de 5 segundos
+</script>
+
+
+
+
 </body>
 </html>
