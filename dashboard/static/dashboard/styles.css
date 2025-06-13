@@ -130,11 +130,12 @@ body {
             gap: 1.5rem;
             margin: 0;
             padding: 0;
+            font-family: 'Montserrat', sans-serif !important;
         }
 
 
         .navbar li a {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Montserrat', sans-serif !important;
             color: black;
             font-size: 1em;
             font-weight: 700 ;
@@ -162,8 +163,36 @@ body {
             justify-content: center;
             margin-bottom: 50px;
             height: 500px; 
-            width: 95%;
+            width: 100%;
         }
+
+        .widget-container{
+            margin-top: 25px;
+            display: flex;
+            justify-content: right;
+            margin-bottom: 50px;
+            height: 500px; 
+            width: 100%;
+        }
+
+        .news-list li{
+        background: rgba(0, 0, 0, 0.9);
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        transition: background-color 0.3s ease;
+        width:100%;
+        
+    }
+
+
+    .news-list li a:hover {
+        text-decoration: none;
+        color: #d08cff
+    }
+
+
         .tool-button {
             position: fixed;
             top: 20px;
@@ -254,27 +283,12 @@ body {
     }
 
 
-    .news-list li{
-        background: rgba(0, 0, 0, 0.9);
-        margin: 10px 0;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-        transition: background-color 0.3s ease;
-        
-    }
-
-
-    .news-list li a:hover {
-        text-decoration: none;
-        color: #d08cff
-    }
-
+    
     /*footer*/
     .footer {
             display:flex;
             align-items: center;
-            background: rgb(126, 162, 205, 1);
+            background: rgb(126, 162, 205, 0.6);
             padding: 15px 0;
             justify-content: center;
             width: 100%;
@@ -296,7 +310,7 @@ body {
     }
 
     .footer a {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Montserrat', sans-serif !important;
             color: black;
             font-size: 1em;
             font-weight: 700 ;

@@ -21,7 +21,7 @@
             <div>
                 <ul>
                     <li class="nav-item"><a href="#">Inicio</a></li>
-                    <li class="nav-item"><a href="#stock-form">Gráfico</a></li>
+                    <li class="nav-item"><a href="#search-ticker">Gráfico</a></li>
                     <li class="nav-item"><a href="contacto/">Contacto</a></li>
                 </ul>
             </div>
@@ -39,7 +39,7 @@
     
 <div class="glass-divider"></div>
 
-    <main class="container">
+    <main class="container" id="search-ticker">
         <h1>Inserte un ticker para empezar</h1>
         <label class="switch">
             <input type="checkbox" id="theme-toggle"  aria-label="Alternar entre modo claro y oscuro">
@@ -100,7 +100,10 @@
             </script>
         </div>
 
-        <section class="news-section" aria-labelledby="news-title">
+        <div style="display: flex; flex-direction: row; gap: 10px; align-items: flex-start; justify-content: space-between; padding: 10px; flex-wrap: wrap;">
+    
+    <!-- Noticias -->
+    <section class="flex: 2; max-width: 60%;" aria-labelledby="news-title">
         <h2><strong>Últimas noticias:</strong> {{ company_name }}</h2>
         <ul class="news-list">
             {% for item in news %}
@@ -112,7 +115,29 @@
                 <li>No hay noticias disponibles.</li>
             {% endfor %}
         </ul>
-        </section>
+    </section>
+
+    <!-- Widget de Análisis Técnico -->
+    <aside class="flex: 1; max-width: 360px;">
+        <div class="widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+          {
+            "interval"; "{{ interval }}",
+            "width"; "100%",
+            "isTransparent"; false,
+            "height"; "450",
+            "symbol"; "{{ ticker }}",
+            "showIntervalTabs"; true,
+            "locale"; "es",
+            "colorTheme"; "dark",
+            "toolbar_bg"; "#f1f3f6"
+          }
+          </script>
+        </div>
+    </aside>
+
+</div>
 
     </main>
 
