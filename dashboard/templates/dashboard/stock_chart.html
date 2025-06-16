@@ -68,6 +68,8 @@
             </div>
         </form>
 
+        
+        
         <h2><strong>Gráfico de:</strong> {{ company_name }}</h2>
 
         <div class="chart-container">
@@ -100,10 +102,10 @@
             </script>
         </div>
 
-        <div style="display: flex; flex-direction: row; gap: 10px; align-items: flex-start; justify-content: space-between; padding: 10px; flex-wrap: wrap;">
-    
+        <div style="display: flex; flex-direction: row; gap: 10px; align-items: flex-start; justify-content: space-between; padding: 10px; flex-wrap: nowrap;">
+
     <!-- Noticias -->
-    <section class="flex: 2; max-width: 60%;" aria-labelledby="news-title">
+    <section style="flex: 2; max-width: 60%;" aria-labelledby="news-title">
         <h2><strong>Últimas noticias:</strong> {{ company_name }}</h2>
         <ul class="news-list">
             {% for item in news %}
@@ -118,30 +120,80 @@
     </section>
 
     <!-- Widget de Análisis Técnico -->
-    <aside class="flex: 1; max-width: 360px;">
+    <aside style="flex: 1; max-width: 360px;">
         <div class="widget-container">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
-          {
-            "interval"; "{{ interval }}",
-            "width"; "100%",
-            "isTransparent"; false,
-            "height"; "450",
-            "symbol"; "{{ ticker }}",
-            "showIntervalTabs"; true,
-            "locale"; "es",
-            "colorTheme"; "dark",
-            "toolbar_bg"; "#f1f3f6"
-          }
-          </script>
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async></script>
+            <script type="text/javascript">
+            TradingView.widget({
+              "interval": "{{ interval}}",
+              "width": "100%",
+              "isTransparent": false,
+              "height": "450",
+              "symbol": "{{ ticker}}",
+              "showIntervalTabs": true,
+              "locale": "es",
+              "colorTheme": "dark",
+              "toolbar_bg": "#f1f3f6"
+            })
+            </script>
         </div>
     </aside>
 
+
+    <hr>
+<section id="comparador" style="margin-top: 40px;">
+    <h2>📊 Comparador de Empresas</h2>
+    <form method="get">
+        <label for="tickers">Ingresá los tickers separados por coma:</label><br>
+        <input type="text" name="tickers" placeholder="AAPL, TSLA, MSFT" style="width: 300px;" value="{{ request.GET.tickers }}">
+        <button type="submit">Comparar</button>
+    </form>
+
+    {% if comparacion %}
+    <table border="1" cellpadding="8" cellspacing="0" style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Precio</th>
+                <th>% Cambio</th>
+                <th>Market Cap</th>
+                <th>P/E Ratio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empresa in comparacion %}
+                <tr>
+                    <td>{{ empresa.ticker }}</td>
+                    {% if empresa.error %}
+                        <td colspan="4" style="color:red;">Error: {{ empresa.error }}</td>
+                    {% else %}
+                        <td>{{ empresa.price }}</td>
+                        <td>{{ empresa.changePercent|floatformat:2 }}%</td>
+                        <td>{{ empresa.marketCap|floatformat:0 }}</td>
+                        <td>{{ empresa.peRatio }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</section>
+
+
+
+
+
+
+
 </div>
+</main>
 
-    </main>
-
-<footer class="footer">
+    
+    
+    
+    
+    <footer class="footer">
   <div class="footer-content">
     <a href="https://mi-web-neon-book.reflex.run/" target="_blank">Mi Portfolio</a>
     <a href="https://mi-web-neon-book.reflex.run/financial_page/" target="_blank">Cursos de Trading</a>
@@ -149,7 +201,9 @@
 </footer> 
 
 
-
+    
+    
+    
     <script>
         const tickerInput = document.getElementById('ticker');
         const suggestionsBox = document.getElementById('suggestions');

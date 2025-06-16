@@ -173,6 +173,8 @@ body {
             margin-bottom: 50px;
             height: 500px; 
             width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
         .news-list li{
@@ -288,7 +290,7 @@ body {
     .footer {
             display:flex;
             align-items: center;
-            background: rgb(126, 162, 205, 0.6);
+            background: rgb(126, 162, 205, 0.4);
             padding: 15px 0;
             justify-content: center;
             width: 100%;

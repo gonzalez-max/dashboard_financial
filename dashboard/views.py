@@ -102,6 +102,29 @@ def get_news_finnhub(ticker):
 def stock_chart(request):
     ticker = request.GET.get("ticker", "AAPL").upper()
     timeframe = request.GET.get("period", "1mo")
+    new_tickers_raw = request.GET.get("tickers", "")
+    remove_ticker = request.GET.get("remove", "").upper()
+
+    # Inicializamos la sesión si no existe
+    if "compared_tickers" not in request.session:
+        request.session["compared_tickers"] = []
+
+    # Convertimos a lista y normalizamos
+    compared_tickers = request.session["compared_tickers"]
+
+    # Remover ticker si se indicó
+    if remove_ticker and remove_ticker in compared_tickers:
+        compared_tickers.remove(remove_ticker)
+
+    # Agregar nuevos tickers desde el input (si se enviaron)
+    if new_tickers_raw:
+        new_tickers = [t.strip().upper() for t in new_tickers_raw.split(',') if t.strip()]
+        for t in new_tickers:
+            if t not in compared_tickers and len(compared_tickers) < 5:
+                compared_tickers.append(t)
+
+    # Guardamos nuevamente la sesión actualizada
+    request.session["compared_tickers"] = compared_tickers
 
     interval_map = {
         "1d": "D",
@@ -114,24 +137,44 @@ def stock_chart(request):
         timeframe = "1mo"
 
     interval = interval_map[timeframe]
+    comparation = []
 
     try:
         stock = yf.Ticker(ticker)
         hist = stock.history(period="1mo")
-
         if hist.empty:
             raise ValueError("No se encontraron datos para ese ticker.")
 
-        # Obtenemos nombre y noticias desde Finnhub
+        # Obtenemos nombre y noticias
         company_name = get_company_name(ticker)
         news = get_news_finnhub(ticker)
+
+        tickers_to_compare = [ticker] + compared_tickers
+
+        for t in tickers_to_compare:
+            try:
+                info = yf.Ticker(t).info
+                comparation.append({
+                    'ticker': t,
+                    'price': info.get('currentPrice'),
+                    'changePercent': info.get('regularMarketChangePercent'),
+                    'marketCap': info.get('marketCap'),
+                    'peRatio': info.get('trailingPE'),
+                    'error': None
+                })
+            except Exception as e:
+                comparation.append({
+                    'ticker': t,
+                    'error': f"Error al obtener datos de {t}: {e}"
+                })
 
         return render(request, "dashboard/stock_chart.html", {
             "ticker": ticker,
             "interval": interval,
             "company_name": company_name,
             "news": news,
-            "timeframe": timeframe
+            "timeframe": timeframe,
+            "comparacion": comparation
         })
 
     except Exception as e:
@@ -140,4 +183,5 @@ def stock_chart(request):
             "ticker": ticker,
             "interval": interval,
             "timeframe": timeframe,
+            "comparacion": comparation
         })
