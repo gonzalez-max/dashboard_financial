@@ -151,32 +151,37 @@
     </form>
 
     {% if comparacion %}
-    <table border="1" cellpadding="8" cellspacing="0" style="margin-top: 20px;">
-        <thead>
-            <tr>
-                <th>Ticker</th>
-                <th>Precio</th>
-                <th>% Cambio</th>
-                <th>Market Cap</th>
-                <th>P/E Ratio</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for empresa in comparacion %}
-                <tr>
-                    <td>{{ empresa.ticker }}</td>
-                    {% if empresa.error %}
-                        <td colspan="4" style="color:red;">Error: {{ empresa.error }}</td>
-                    {% else %}
-                        <td>{{ empresa.price }}</td>
-                        <td>{{ empresa.changePercent|floatformat:2 }}%</td>
-                        <td>{{ empresa.marketCap|floatformat:0 }}</td>
-                        <td>{{ empresa.peRatio }}</td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <table class="tabla-comparador">
+    <thead>
+        <tr>
+            <th>Ticker</th>
+            <th>Precio</th>
+            <th>% Cambio</th>
+            <th>Market Cap</th>
+            <th>P/E Ratio</th>
+            <th style="text-align: center;">✖</th> <!-- Encabezado del botón borrar -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in comparacion %}
+        <tr>
+            <td>{{ item.ticker }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.changePercent }}%</td>
+            <td>{{ item.marketCap }}</td>
+            <td>{{ item.peRatio }}</td>
+            <td style="text-align: center;">
+                {% if item.ticker != ticker %}
+                <a href="?ticker={{ ticker }}&tickers={{ tickers_input|urlencode }}&remove={{ item.ticker }}"
+                   title="Eliminar"
+                   style="display: inline-block; padding: 4px 8px; background-color: #f44336; color: white; border-radius: 4px; text-decoration: none;">✖</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
     {% endif %}
 </section>
 

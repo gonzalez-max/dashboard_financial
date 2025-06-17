@@ -177,6 +177,102 @@ body {
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
+
+        /* Estilo general de la sección */
+#comparador {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Título */
+#comparador h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Formulario */
+#comparador form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+#comparador input[type="text"] {
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    width: 280px;
+}
+
+#comparador button {
+    padding: 10px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+#comparador button:hover {
+    background-color: #0056b3;
+}
+
+/* Tabla */
+.tabla-comparador {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tabla-comparador th,
+.tabla-comparador td {
+    padding: 12px 14px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tabla-comparador thead th {
+    background-color: #f9f9f9;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.tabla-comparador tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Botón de eliminar */
+.tabla-comparador a {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.tabla-comparador a:hover {
+    background-color: #c0392b;
+}
+
+
+
+
+
         .news-list li{
         background: rgba(0, 0, 0, 0.9);
         margin: 10px 0;
