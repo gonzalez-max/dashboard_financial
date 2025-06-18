@@ -156,7 +156,7 @@ body {
         }
 
 
-        
+        /*grafico de trading*/
         .chart-container {
             margin-top: 25px;
             display: flex;
@@ -166,19 +166,121 @@ body {
             width: 100%;
         }
 
-        .widget-container{
-            margin-top: 25px;
-            display: flex;
-            justify-content: right;
-            margin-bottom: 50px;
-            height: 500px; 
-            width: 100%;
-            border-radius: 5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+
+
+
+
+.contenedor-noticias-widget {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px;
+    flex-wrap: wrap; /* Importante para responsividad */
+}
+
+/* Sección de noticias */
+.news-container {
+    flex: 2;
+    max-width: 60%;
+}
+
+/* Contenedor del widget */
+.widget-container {
+    width: 100%;
+    max-width: 550px;
+    height: 450px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #121212;
+    margin: 0 auto;
+}
+
+
+
+
+/* CONTENEDOR GENERAL DE NOTICIAS Y WIDGET */
+.contenedor-noticias-widget {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px;
+    flex-wrap: wrap; /* Para que en mobile se acomoden uno debajo del otro */
+}
+
+
+/* NOTICIAS */
+.news-container {
+    flex: 2;
+    max-width: 100%;
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
+
+.news-list li {
+    background: rgba(0, 0, 0, 0.9);
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.news-list li a:hover {
+    text-decoration: none;
+    color: #d08cff;
+}
+
+
+/* WIDGET */
+.widget-container {
+    flex: 1;
+    max-width: 550px;
+    width: 100%;
+    height: 450px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #121212;
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
+
+
+
+
+
+
+
+
+        
+
+
+        .tool-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
         }
 
 
-        /* Estilo general de la sección */
+
+
+
+
+
+
+
+
+
+
+
+        /* comparador  */
 #comparador {
     max-width: 900px;
     margin: 40px auto;

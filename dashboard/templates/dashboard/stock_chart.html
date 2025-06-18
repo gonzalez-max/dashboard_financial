@@ -102,10 +102,10 @@
             </script>
         </div>
 
-        <div style="display: flex; flex-direction: row; gap: 10px; align-items: flex-start; justify-content: space-between; padding: 10px; flex-wrap: nowrap;">
-
+        <div class="contenedor-noticias-widget">
     <!-- Noticias -->
     <section style="flex: 2; max-width: 60%;" aria-labelledby="news-title">
+        <div class="news-container">
         <h2><strong>Últimas noticias:</strong> {{ company_name }}</h2>
         <ul class="news-list">
             {% for item in news %}
@@ -117,10 +117,11 @@
                 <li>No hay noticias disponibles.</li>
             {% endfor %}
         </ul>
+        </div>
     </section>
 
     <!-- Widget de Análisis Técnico -->
-    <aside style="flex: 1; max-width: 360px;">
+    <div style="max-width: 550px; margin: 0 auto;">
         <div class="widget-container">
             <div class="tradingview-widget-container__widget"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async></script>
@@ -128,19 +129,21 @@
             TradingView.widget({
               "interval": "{{ interval}}",
               "width": "100%",
-              "isTransparent": false,
+              "isTransparent": true,
               "height": "450",
+              "width": "550",
               "symbol": "{{ ticker}}",
               "showIntervalTabs": true,
               "locale": "es",
               "colorTheme": "dark",
-              "toolbar_bg": "#f1f3f6"
+              "toolbar_bg": "#f1f3f6",
+             
             })
             </script>
         </div>
-    </aside>
-
-
+    </div>
+    
+    </div>
     <hr>
 <section id="comparador" style="margin-top: 40px;">
     <h2>📊 Comparador de Empresas</h2>
