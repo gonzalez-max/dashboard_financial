@@ -9,6 +9,8 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from datetime import datetime
+
 
 
 #codigo de formulario
@@ -90,10 +92,13 @@ def get_news_finnhub(ticker):
 
     news_items = []
     for item in data[:5]:  # Solo las primeras 5 noticias
+        timestamp = item.get("datetime")
+        fecha_legible = datetime.fromtimestamp(timestamp).strftime("%d/%m/%Y") if timestamp else "Sin fecha"
+
         news_items.append({
             'title': item.get("headline"),
             'link': item.get("url"),
-            'published': item.get("datetime"),
+            'published': fecha_legible,
         })
 
     return news_items
