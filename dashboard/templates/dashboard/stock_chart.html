@@ -22,6 +22,8 @@
                 <ul>
                     <li class="nav-item"><a href="#">Inicio</a></li>
                     <li class="nav-item"><a href="#search-ticker">Gráfico</a></li>
+                    <li class="nav-item"><a href="#comparador">Comparar</a></li>
+                    <li class="nav-item"><a href="#news-widget">Noticias</a></li>
                     <li class="nav-item"><a href="contacto/">Contacto</a></li>
                 </ul>
             </div>
@@ -102,7 +104,7 @@
             </script>
         </div>
 
-        <h2 class ="titulo-news"><strong>Últimas noticias:</strong> {{ company_name }}</h2>
+        <h2 class ="titulo-news" id="news-widget"><strong>Últimas noticias:</strong> {{ company_name }}</h2>
         <div class="contenedor-noticias-widget">
     <!-- Noticias -->
     <section style="flex: 2; max-width: 60%;" aria-labelledby="news-title">
@@ -146,7 +148,7 @@
    
     </div>
     <hr>
-<section id="comparador" style="margin-top: 40px;">
+<section id="comparador" style="margin-top: 100px; margin-bottom: 100px;">
     <h2>📊 Comparador de Empresas</h2>
     <form method="get">
         <label for="tickers">Ingresá los tickers separados por coma:</label><br>
