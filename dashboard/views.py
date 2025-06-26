@@ -105,43 +105,54 @@ def get_news_finnhub(ticker):
 
 # buscador de ticker 
 def stock_chart(request):
-    ticker = request.GET.get("ticker", "AAPL").upper()
-    timeframe = request.GET.get("period", "1mo")
+    # Obtener valores crudos
     new_tickers_raw = request.GET.get("tickers", "")
     remove_ticker = request.GET.get("remove", "").upper()
+    ticker_from_get = request.GET.get("ticker", "").upper()
+    timeframe = request.GET.get("period", "1mo")
 
-    # Inicializamos la sesión si no existe
+    # Procesar lista de nuevos tickers desde input
+    new_tickers = [t.strip().upper() for t in new_tickers_raw.split(',') if t.strip()]
+
+    # Determinar el ticker principal
+    if ticker_from_get:
+        ticker = ticker_from_get
+        request.session["ticker_principal"] = ticker  # Guardar en sesión
+    elif new_tickers:
+        ticker = new_tickers[0]
+        request.session["ticker_principal"] = ticker  # Guardar en sesión
+    else:
+        ticker = request.session.get("ticker_principal", "AAPL")  # Usar guardado o AAPL
+
+    # Inicializar lista de comparación en sesión si no existe
     if "compared_tickers" not in request.session:
         request.session["compared_tickers"] = []
 
-    # Convertimos a lista y normalizamos
     compared_tickers = request.session["compared_tickers"]
 
     # Remover ticker si se indicó
     if remove_ticker and remove_ticker in compared_tickers:
         compared_tickers.remove(remove_ticker)
 
-    # Agregar nuevos tickers desde el input (si se enviaron)
-    if new_tickers_raw:
-        new_tickers = [t.strip().upper() for t in new_tickers_raw.split(',') if t.strip()]
-        for t in new_tickers:
-            if t not in compared_tickers and len(compared_tickers) < 5:
-                compared_tickers.append(t)
+    # Agregar nuevos tickers desde el input (que no sea el principal)
+    for t in new_tickers:
+        if t != ticker and t not in compared_tickers and len(compared_tickers) < 5:
+            compared_tickers.append(t)
 
-    # Guardamos nuevamente la sesión actualizada
+    # Guardar lista actualizada en sesión
     request.session["compared_tickers"] = compared_tickers
 
+    # Validar intervalo
     interval_map = {
         "1d": "D",
         "1wk": "W",
         "1mo": "M",
         "1y": "D",
     }
-
     if timeframe not in interval_map:
         timeframe = "1mo"
-
     interval = interval_map[timeframe]
+
     comparation = []
 
     try:
@@ -150,10 +161,10 @@ def stock_chart(request):
         if hist.empty:
             raise ValueError("No se encontraron datos para ese ticker.")
 
-        # Obtenemos nombre y noticias
         company_name = get_company_name(ticker)
         news = get_news_finnhub(ticker)
 
+        # Armar la lista de tickers a comparar
         tickers_to_compare = [ticker] + compared_tickers
 
         for t in tickers_to_compare:
@@ -179,7 +190,8 @@ def stock_chart(request):
             "company_name": company_name,
             "news": news,
             "timeframe": timeframe,
-            "comparacion": comparation
+            "comparacion": comparation,
+            "tickers_input": ",".join([ticker] + compared_tickers)
         })
 
     except Exception as e:
@@ -188,5 +200,6 @@ def stock_chart(request):
             "ticker": ticker,
             "interval": interval,
             "timeframe": timeframe,
-            "comparacion": comparation
+            "comparacion": comparation,
+            "tickers_input": ",".join([ticker] + compared_tickers)
         })

@@ -125,26 +125,17 @@
 
     <!-- Widget de Análisis Técnico -->
     <div style="max-width: 550px; margin: 0 auto;">
-        <div class="widget-container">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async></script>
-            <script type="text/javascript">
-            TradingView.widget({
-              "interval": "{{ interval}}",
-              "width": "100%",
-              "isTransparent": true,
-              "height": "450",
-              "width": "550",
-              "symbol": "{{ ticker}}",
-              "showIntervalTabs": true,
-              "locale": "es",
-              "colorTheme": "dark",
-              "toolbar_bg": "#f1f3f6",
-             
-            })
-            </script>
-        </div>
+  <div class="widget-container">
+    <div class="tradingview-widget-container" id="technical-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <div class="tradingview-widget-copyright">
+        <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+          <span class="blue-text">Track all markets on TradingView</span>
+        </a>
+      </div>
     </div>
+  </div>
+</div>
    
     </div>
     <hr>
@@ -152,44 +143,45 @@
     <h2>📊 Comparador de Empresas</h2>
     <form method="get">
         <label for="tickers">Ingresá los tickers separados por coma:</label><br>
-        <input type="text" name="tickers" placeholder="AAPL, TSLA, MSFT" style="width: 300px;" value="{{ request.GET.tickers }}">
+        <input type="text" name="tickers" placeholder="AAPL, TSLA, MSFT" style="width: 300px;" value="{{ tickers_input }}">
+        <input type="hidden" name="ticker" value="{{ ticker }}"> <!-- ✅ Conserva el ticker principal -->
         <button type="submit">Comparar</button>
     </form>
 
     {% if comparacion %}
     <table class="tabla-comparador">
-    <thead>
-        <tr>
-            <th>Ticker</th>
-            <th>Precio</th>
-            <th>% Cambio</th>
-            <th>Market Cap</th>
-            <th>P/E Ratio</th>
-            <th style="text-align: center;">Eliminar</th> <!-- Encabezado del botón borrar -->
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in comparacion %}
-        <tr>
-            <td>{{ item.ticker }}</td>
-            <td>{{ item.price }}</td>
-            <td>{{ item.changePercent }}%</td>
-            <td>{{ item.marketCap }}</td>
-            <td>{{ item.peRatio }}</td>
-            <td style="text-align: center;">
-                {% if item.ticker != ticker %}
-                <a href="?ticker={{ ticker }}&tickers={{ tickers_input|urlencode }}&remove={{ item.ticker }}"
-                   title="Eliminar"
-                   style="display: inline-block; padding: 4px 8px; background-color: #f44336; color: white; border-radius: 4px; text-decoration: none;">✖</a>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Precio</th>
+                <th>% Cambio</th>
+                <th>Market Cap</th>
+                <th>P/E Ratio</th>
+                <th style="text-align: center;">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in comparacion %}
+            <tr>
+                <td>{{ item.ticker }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.changePercent }}%</td>
+                <td>{{ item.marketCap }}</td>
+                <td>{{ item.peRatio }}</td>
+                <td style="text-align: center;">
+                    {% if item.ticker != ticker %}
+                    <a href="?ticker={{ ticker }}&tickers={{ tickers_input|urlencode }}&remove={{ item.ticker }}"
+                       title="Eliminar"
+                       style="display: inline-block; padding: 4px 8px; background-color: #f44336; color: white; border-radius: 4px; text-decoration: none;">✖</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     {% endif %}
 </section>
+
 
 
 
@@ -213,7 +205,26 @@
 
 
     
-    
+    <script>
+  const ticker = "{{ ticker|escapejs }}";  // Variable Django
+  const interval = "{{ interval}}";
+
+  const script = document.createElement('script');
+  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
+  script.async = true;
+  script.innerHTML = JSON.stringify({
+    interval: "1m",
+    width: 550,
+    isTransparent: false,
+    height: 450,
+    symbol: ticker,
+    showIntervalTabs: true,
+    locale: "es",
+    colorTheme: "dark"
+  });
+
+  document.querySelector("#technical-widget-container .tradingview-widget-container__widget").appendChild(script);
+</script>
     
     <script>
         const tickerInput = document.getElementById('ticker');
