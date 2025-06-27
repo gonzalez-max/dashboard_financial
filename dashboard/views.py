@@ -133,7 +133,11 @@ def stock_chart(request):
     # Remover ticker si se indicó
     if remove_ticker and remove_ticker in compared_tickers:
         compared_tickers.remove(remove_ticker)
+        new_tickers = [t for t in new_tickers if t != remove_ticker]  # ✅ lo quitamos del input
+    request.session["compared_tickers"] = compared_tickers
+    request.session.modified = True
 
+    
     # Agregar nuevos tickers desde el input (que no sea el principal)
     for t in new_tickers:
         if t != ticker and t not in compared_tickers and len(compared_tickers) < 5:
