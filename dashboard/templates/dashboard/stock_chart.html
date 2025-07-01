@@ -18,8 +18,9 @@
     
     <header>
         <nav class="navbar">
+            <button class="hamburger" onclick="toggleMenu()">☰</button>
             <div>
-                <ul>
+                <ul id="nav-links">
                     <li class="nav-item"><a href="#">Inicio</a></li>
                     <li class="nav-item"><a href="#search-ticker">Gráfico</a></li>
                     <li class="nav-item"><a href="#comparador">Comparar</a></li>
@@ -27,6 +28,13 @@
                     <li class="nav-item"><a href="contacto/">Contacto</a></li>
                 </ul>
             </div>
+            <label class="switch">
+                <input type="checkbox" id="theme-toggle"  aria-label="Alternar entre modo claro y oscuro">
+                <span class="slider">
+                    <span class="icon-moon">🌙</span>
+                    <span class="icon-sun">🌞</span>
+                </span>
+            </label>
         </nav>
     </header>
 
@@ -43,13 +51,6 @@
 
     <main class="container" id="search-ticker">
         <h1>Inserte un ticker para empezar</h1>
-        <label class="switch">
-            <input type="checkbox" id="theme-toggle"  aria-label="Alternar entre modo claro y oscuro">
-            <span class="slider">
-                <span class="icon-moon">🌙</span>
-                <span class="icon-sun">🌞</span>
-            </span>
-        </label>
 
         <form method="get" id="stock-form">
             <div style="position: relative; width: 300px; display: inline-block; ">
@@ -138,7 +139,7 @@
 </div>
    
     </div>
-    <hr>
+<hr class="full-width">
 <section id="comparador" style="margin-top: 100px; margin-bottom: 100px;">
     <h2>📊 Comparador de Empresas</h2>
     <form method="get">
@@ -204,26 +205,54 @@
 </footer> 
 
 
-    
     <script>
-  const ticker = "{{ ticker|escapejs }}";  // Variable Django
+  function toggleMenu() {
+    const navLinks = document.getElementById('nav-links');
+    navLinks.classList.toggle('active');
+  }
+</script>
+
+    <script>
+  const ticker = "{{ ticker|escapejs }}";
   const interval = "{{ interval}}";
 
-  const script = document.createElement('script');
-  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
-  script.async = true;
-  script.innerHTML = JSON.stringify({
-    interval: "1m",
-    width: 550,
-    isTransparent: false,
-    height: 450,
-    symbol: ticker,
-    showIntervalTabs: true,
-    locale: "es",
-    colorTheme: "dark"
-  });
+  function getWidgetSize() {
+    // Puedes ajustar estos valores según tus breakpoints
+    if (window.innerWidth < 600) {
+      return { width: 320, height: 350 };
+    } else if (window.innerWidth < 900) {
+      return { width: 420, height: 400 };
+    } else {
+      return { width: 550, height: 450 };
+    }
+  }
 
-  document.querySelector("#technical-widget-container .tradingview-widget-container__widget").appendChild(script);
+  function loadTradingViewWidget() {
+    const { width, height } = getWidgetSize();
+    const script = document.createElement('script');
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
+    script.async = true;
+    script.innerHTML = JSON.stringify({
+      interval: "1m",
+      width: width,
+      isTransparent: false,
+      height: height,
+      symbol: ticker,
+      showIntervalTabs: true,
+      locale: "es",
+      colorTheme: "dark"
+    });
+    const container = document.querySelector("#technical-widget-container .tradingview-widget-container__widget");
+    container.innerHTML = '';
+    container.appendChild(script);
+  }
+
+  // Cargar al inicio
+  loadTradingViewWidget();
+  // Volver a cargar si cambia el tamaño de la ventana
+  window.addEventListener('resize', function() {
+    loadTradingViewWidget();
+  });
 </script>
     
     <script>

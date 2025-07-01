@@ -1,39 +1,75 @@
+/* --- GLOBAL RESET Y FLUIDEZ --- */
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
 body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #a4c8fd;
-            color: black;
-            width:100%;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            overflow-x: hidden;
-            overflow-y: auto;
-            
-        }
-        h1 {
-            text-align: center;
-            font-family: 'Montserrat', sans-serif!important;
-            font-size: 3rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin-top: 10px;
-            
-        }
-        
-        h2 {
-            font-family: 'Montserrat', sans-serif !important;
-            font-weight: normal;
-            margin-bottom: 10px;
-            font-size: 2rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
-        
-       
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #a4c8fd;
+  color: black;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.container, .news-container, .widget-container, .footer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+img, table, .tabla-comparador, .news-list li {
+  max-width: 100%;
+  height: auto;
+  box-sizing: border-box;
+}
+
+form, input, select, button {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* --- TIPOGRAFÍA FLUIDA --- */
+h1 {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif!important;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 1rem;
+}
+h2 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 500;
+  margin-bottom: 0.7rem;
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  letter-spacing: 1px;
+}
+
+/* --- FLUIDEZ Y ACCESIBILIDAD GENERAL --- */
+input, select, button, textarea {
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #1b1b1b;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 
-        .container {
+/*___________container general_______________*/
+.container {
             width: 100%;  
             margin: 0 auto;
             padding: 0 20px;
@@ -60,7 +96,7 @@ body {
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* sombra ligera */
         }
 
-
+        /*______________-formularios web pricipal_______________________________*/
         .form-group {
             display: flex;
             flex-direction: column;
@@ -103,8 +139,95 @@ body {
             font-weight: 500;
             font-family: Arial, Helvetica, sans-serif;
         }
+
+
+
+        /*____________sugerencias o autorrelleno_____________________-*/
+        #suggestions {
+            position: absolute;
+            background-color: rgba(125, 125, 125, 0.6) ;
+            border-radius: 15px;
+            width: 100%;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 999;
+            top: 100%;
+            left: 0;
+            font-size: 14px;
+        }
+
+        #suggestions div {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        #suggestions div:hover {
+            background-color: white;
+            color: black;
+            border-radius: 15px; 
+        }
+
+
+        /* Estilos del Toggle Switch */
+        .switch {
+            position: fixed;
+            top: 0px;
+            display: inline-block;
+            width: 50px;
+            height: 25px;
+            z-index: 1000;
+            right: 100px;
+            
+            align-content: center;
+            justify-content: center;
+            
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgb(99, 99, 99);
+            transition: 0.4s;
+            border-radius: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5px;
+            font-size: 12px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
         
-         
+        /*___________________navbar______________________________*/ 
         .navbar {
             display: flex;
             align-items: center;
@@ -121,6 +244,9 @@ body {
             -webkit-backdrop-filter: blur(3px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin: 0 auto;
+            width: 100vw;
+            min-width: 0;
+            box-sizing: border-box;
         }
 
         /* Links del navbar */
@@ -155,203 +281,21 @@ body {
             transition: color 0.3s ease;
         }
 
-
-        /*grafico de trading*/
-        .chart-container {
-            margin-top: 25px;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 50px;
-            height: 500px; 
-            width: 100%;
+        /* Botón hamburguesa */
+        .hamburger {
+                display: none;
+                font-size: 1.5rem;
+                background: none;
+                border: none;
+                color: black;
+                cursor: pointer;
+                position: absolute;
+                left: 10px;
+                top: 3px;
+                z-index: 1001;
         }
 
 
-
-
-        /* CONTENEDOR GENERAL DE NOTICIAS Y WIDGET */
-        .contenedor-noticias-widget {
-            display: flex;
-            flex-direction: row;
-            gap: 30px;
-            align-items: flex-start;
-            justify-content: space-between;
-            padding: 20px;
-            flex-wrap: wrap; /* Para que en mobile se acomoden uno debajo del otro */
-        }
-
-
-        /* NOTICIAS */
-        .news-container {
-            flex: 2;
-            max-width: 90%;
-            margin-top: 25px;
-            margin-bottom: 50px;
-        }
-
-
-        .news-list li {
-            background: rgba(0, 0, 0, 0.9);
-            margin: 15px 0;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            transition: background-color 0.3s ease;
-            width: 90%;
-            max-width: 100%;
-        }
-
-        .news-list li a {
-            font-size: 1rem;
-            font-weight: bold;
-            font-family: 'Montserrat', sans-serif !important;
-        }
-
-
-        .news-list li a:hover {
-            text-decoration: none;
-            color: #d08cff;
-        }
-
-        .titulo-news h2{
-            margin-left: 20px;
-            margin-top: 30px;
-            margin-bottom: 5px;
-            font-size: 1.6rem;
-            color: #fff;
-            font-family: 'Montserrat', sans-serif;
-            padding-left: 10px;
-        }
-        /* WIDGET */
-        .widget-container {
-            flex: 1;
-            max-width: 550px;
-            width: 100%;
-            height: 450px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            overflow: hidden;
-            border-radius: 12px;
-            margin-top: 25px;
-            margin-bottom: 50px;
-        }
-
-        .tool-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 999;
-        }
-
-        /* comparador  */
-        #comparador {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.9);
-            border-radius: 12px;
-            box-shadow:  0 4px 15px rgba(0,0,0,0.4);
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* Título */
-        #comparador h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: white;
-            font-weight: 500;
-        }
-
-        /* Formulario */
-        #comparador form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-            color: white;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 20px;
-            font-weight: 500;
-        }
-
-        #comparador input[type="text"] {
-            padding: 10px 14px;
-            border: 1px solid #ccc;
-            border-radius: 15px;
-            font-size: 15px;
-            width: 280px;
-            font-family: 'Montserrat', sans-serif;
-            
-        }
-
-        #comparador button {
-            padding: 10px 16px;
-            background-color: white;
-            color: black;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
-        #comparador button:hover {
-            background-color: black;
-            color: white;
-        }
-
-        /* Tabla */
-        .tabla-comparador {
-            width: 100%;
-            border-collapse: collapse;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: darkgray;
-        }
-
-        .tabla-comparador th,
-        .tabla-comparador td {
-            padding: 12px 14px;
-            text-align: center;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .tabla-comparador thead th {
-            background-color: gray;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-
-        .tabla-comparador tbody tr:hover {
-            background-color: #f1f1f1;
-            cursor:pointer;
-        }
-
-        /* Botón de eliminar */
-        .tabla-comparador a {
-            display: inline-block;
-            padding: 4px 8px;
-            background-color: #e74c3c;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: background-color 0.2s ease;
-        }
-
-        .tabla-comparador a:hover {
-            background-color: #c0392b;
-        }
-
-
-        .tool-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 999;
-        }
         /*__________hero styles_____________*/ 
         .hero {
             height: 100vh;
@@ -363,8 +307,11 @@ body {
             align-items: center;     
             text-align: center;      
             background: radial-gradient(circle,rgba(217, 135, 255, 1) 0%, rgba(161, 161, 255, 1) 40%, rgba(222, 235, 255, 1) 90%);
-            padding: 20px;
             min-height: 100vh;
+            width: 100vw;
+            min-width: 0;
+            box-sizing: border-box;
+            padding: 2rem 0.5rem;
         }
 
         .hero-content {
@@ -413,6 +360,231 @@ body {
 
 
 
+        /*________________grafico de trading____________*/
+        .chart-container {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+            height: 500px; 
+            width: 100%;
+        }
+
+
+
+
+        /*_________________CONTENEDOR GENERAL DE NOTICIAS Y WIDGET___________________*/
+        .contenedor-noticias-widget {
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 20px;
+            flex-wrap: wrap; /* Para que en mobile se acomoden uno debajo del otro */
+        }
+
+
+        /*_________________________NOTICIAS__________________________________*/
+        .news-container {
+            flex: 2;
+            max-width: 90%;
+            margin-top: 25px;
+            margin-bottom: 50px;
+        }
+
+
+        .news-list li {
+            background: rgba(0, 0, 0, 0.9);
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: background-color 0.3s ease;
+            width: 90%;
+            max-width: 100%;
+        }
+
+        .news-list li a {
+            font-size: 1rem;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif !important;
+        }
+
+
+        .news-list li a:hover {
+            text-decoration: none;
+            color: #d08cff;
+        }
+
+        .titulo-news h2{
+            margin-left: 20px;
+            margin-top: 30px;
+            margin-bottom: 5px;
+            font-size: 1.6rem;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            padding-left: 10px;
+        }
+        /*_____________________WIDGET ANALISIS_______________________*/
+        .widget-container {
+            flex: 1 1 0%;
+            max-width: 100%;
+            width: 100%;
+            height: 100%;
+            margin: 0 !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            box-shadow: none !important;
+            display: flex;
+            align-items: stretch;
+            justify-content: stretch;
+            background: none;
+        }
+
+        .widget-container > * {
+            width: 100% !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            display: block !important;
+            box-sizing: border-box;
+            background: none;
+        }
+
+        .tool-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        /*_________________________comparador_______________________*/
+        
+        hr.full-width {
+                width: 100vw;
+                margin-left: calc(-50vw + 50%);
+                border: none;
+                border-top: 2px solid #ffffff;
+                height: 0;
+                padding: 0;
+        }
+        
+        
+        /*_________________________Estilos del comparador________________________*/
+        #comparador {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.9);
+            border-radius: 12px;
+            box-shadow:  0 4px 15px rgba(0,0,0,0.4);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /*_______________________Título comparador___________________*/
+        #comparador h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+            font-weight: 500;
+        }
+
+        /*________________________Formulario_________________________*/
+        #comparador form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        #comparador input[type="text"] {
+            padding: 10px 14px;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            font-size: 15px;
+            width: 280px;
+            font-family: 'Montserrat', sans-serif;
+            
+        }
+
+        #comparador button {
+            padding: 10px 16px;
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        #comparador button:hover {
+            background-color: black;
+            color: white;
+        }
+
+        /*________________________Tabla comparador___________________ */
+        .tabla-comparador {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: darkgray;
+        }
+
+        .tabla-comparador th,
+        .tabla-comparador td {
+            padding: 12px 14px;
+            text-align: center;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tabla-comparador thead th {
+            background-color: gray;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+
+        .tabla-comparador tbody tr:hover {
+            background-color: #f1f1f1;
+            cursor:pointer;
+        }
+
+        /*______________________________Botón de eliminar_________________*/
+        .tabla-comparador a {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+
+        .tabla-comparador a:hover {
+            background-color: #c0392b;
+        }
+
+
+        .tool-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+        
+
+
         ul {
             list-style-type: none;
             padding: 0;
@@ -440,20 +612,26 @@ body {
     
         /*footer*/
         .footer {
-            display:flex;
-            align-items: center;
-            background: rgb(126, 162, 205, 0.4);
+            width: 100vw !important;
+            min-width: 100vw;
+            max-width: 100vw;
+            height: 50px;
+            left: 0;
+            right: 0;
+            margin: 0 !important;
             padding: 15px 0;
+            background: rgb(126, 162, 205, 0.4);
+            display: flex;
+            align-items: center;
             justify-content: center;
-            width: 100%;
             position: static;
-            border-top:1px solid #727272;
-            margin: 0;
+            bottom: 0;
+            border-top: 1px solid #727272;
             box-sizing: border-box;
             overflow-x: hidden;
             flex-wrap: wrap;
-            margin-top: 100px;
             box-shadow: #222;
+            z-index: 100;
         }
 
         .footer-content {
@@ -466,7 +644,7 @@ body {
         .footer a {
             font-family: 'Montserrat', sans-serif !important;
             color: black;
-            font-size: 1em;
+            font-size: 1.1em;
             font-weight: 700 ;
             text-decoration: none;
         }
@@ -476,132 +654,6 @@ body {
             transition: color 0.3s ease;
         }
 
-
-
-    
-
-
-      @media (max-width: 500px) {
-  
-        .hero {
-            width: 100%;
-            padding: 20px;
-        }
-
-        .hero-title {
-            font-size: 2.5rem; /* Ajustado para móvil */
-        }
-  
-        .hero-subtitle {
-            font-size: 1rem;
-            margin-bottom: 30px;
-        }
-
-        .cta-button {
-            padding: 12px 24px;
-            font-size: 0.9rem;
-        }
-
-        .switch{
-            right: 10px;
-            top: 10px;
-        }
-
-        form {
-            flex-direction: column;
-        }
-
-        .chart-container {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .tool-button {
-            top: 10px;
-            right: 10px;
-        }
-      }
-        /* sugerencias o autorrelleno*/
-        #suggestions {
-            position: absolute;
-            background-color: rgba(125, 125, 125, 0.6) ;
-            border-radius: 15px;
-            width: 100%;
-            max-height: 200px;
-            overflow-y: auto;
-            z-index: 999;
-            top: 100%;
-            left: 0;
-            font-size: 14px;
-        }
-
-        #suggestions div {
-            padding: 8px;
-            cursor: pointer;
-        }
-
-        #suggestions div:hover {
-            background-color: white;
-            color: black;
-            border-radius: 15px; 
-        }
-
-
-        /* Estilos del Toggle Switch */
-        .switch {
-            position: fixed;
-            top: 0px;
-            display: inline-block;
-            width: 50px;
-            height: 26px;
-            z-index: 1000;
-            right: 100px;
-            margin-top: 5px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgb(99, 99, 99);
-            transition: 0.4s;
-            border-radius: 26px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 5px;
-            font-size: 12px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: 0.4s;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        input:checked + .slider {
-            background-color: #2196F3;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(24px);
-        }
 
       /*_______________________web de contacto__________________________*/
         .contacto-container {
@@ -613,6 +665,7 @@ body {
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             width: 100%;
             margin-top: 50px; 
+            margin-bottom: 50px;
         }
 
 
@@ -730,14 +783,7 @@ body {
         }
 
 
-
-
-
-
-
-
-
-        /* ________________🌚 Modo Oscuro________________________-*/
+/* ________________🌚 Modo Oscuro________________________-*/
         body.dark-mode {
             background: black;
             color: #f1f1f1;
@@ -934,3 +980,242 @@ body {
             background-color: #3f3f3f;
             cursor:pointer;
         }
+
+        /* --- MEDIA QUERIES OPTIMIZADAS --- */
+@media (max-width: 600px) {
+  html { font-size: 15px; }
+  body { width: 100vw; min-width: 0; overflow-x: hidden; }
+  .container, .news-container, .widget-container, .footer {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 2vw !important;
+    box-sizing: border-box;
+  }
+  .hero {
+    width: 100vw !important;
+    min-width: 0;
+    padding: 1.5rem 0.5rem !important;
+    min-height: 60vh;
+    height: auto;
+    box-sizing: border-box;
+  }
+  .hero-title, h1 {
+    font-size: clamp(2rem, 8vw, 2.5rem) !important;
+    word-break: break-word;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .hero-subtitle {
+    font-size: clamp(1rem, 4vw, 1.2rem) !important;
+    margin-bottom: 1.5rem;
+  }
+  .cta-button {
+    font-size: 1rem;
+    padding: 10px 18px;
+    width: 90%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+  }
+  .contenedor-noticias-widget {
+    flex-direction: column !important;
+    gap: 18px;
+    padding: 10px 0 !important;
+  }
+  .widget-container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow-x: auto;
+  }
+  .widget-container > * {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+  h2 {
+    font-size: clamp(1.1rem, 5vw, 1.5rem) !important;
+    margin-bottom: 0.5rem;
+  }
+  #comparador {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 10px 0 !important;
+    padding: 10px 2vw !important;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+  #comparador form {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    font-size: 1rem;
+    width: 100%;
+  }
+  #comparador input[type="text"], #comparador button {
+    width: 100%;
+    min-width: 0;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  .tabla-comparador {
+    display: block;
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    box-sizing: border-box;
+  }
+  .tabla-comparador th, .tabla-comparador td {
+    padding: 6px 4px;
+    font-size: 0.9rem;
+    min-width: 80px;
+    word-break: break-word;
+  }
+  .footer {
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    left: 0;
+    right: 0;
+    margin: 0 !important;
+    padding: 10px 0 !important;
+    position: static !important;
+    border-radius: 0 !important;
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .container, .news-container, .widget-container, .footer {
+    max-width: 98vw;
+    padding: 0 2vw;
+  }
+  .hero, .chart-container, .contenedor-noticias-widget {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  #comparador {
+    width: 95vw;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 15px 3vw;
+    border-radius: 12px;
+    box-sizing: border-box;
+  }
+  #comparador form {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 1.1rem;
+    width: 100%;
+  }
+  #comparador input[type="text"] {
+    width: 220px;
+    font-size: 1rem;
+  }
+  #comparador button {
+    width: auto;
+    font-size: 1rem;
+    padding: 10px 14px;
+  }
+  .tabla-comparador {
+    font-size: 0.95rem;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .tabla-comparador th, .tabla-comparador td {
+    padding: 8px 6px;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 901px) {
+  .container, .news-container, .widget-container, .footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1vw;
+  }
+  .hero, .chart-container, .contenedor-noticias-widget {
+    flex-direction: row;
+    align-items: center;
+    gap: 2rem;
+  }
+  #comparador {
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 12px;
+    box-sizing: border-box;
+  }
+  #comparador form {
+    flex-direction: row;
+    gap: 12px;
+    font-size: 1.2rem;
+    width: 100%;
+  }
+  #comparador input[type="text"] {
+    width: 280px;
+    font-size: 1rem;
+  }
+  #comparador button {
+    width: auto;
+    font-size: 1rem;
+    padding: 10px 16px;
+  }
+  .tabla-comparador {
+    font-size: 1rem;
+    width: 100%;
+    display: table;
+  }
+  .tabla-comparador th, .tabla-comparador td {
+    padding: 12px 14px;
+    font-size: 1rem;
+  }
+}
+
+/* --- MEDIA QUERIES PARA MENU HAMBURGUESA --- */
+@media (max-width: 600px) {
+  .hamburger {
+    display: block !important;
+    position: absolute;
+    left: 10px;
+    top: 3px;
+    z-index: 1001;
+  }
+  #nav-links {
+    display: none;
+    flex-direction: column;
+    background: rgba(170,170,170,0.95);
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100vw;
+    padding: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 0 0 12px 12px;
+    text-align: center;
+  }
+  #nav-links.active {
+    display: flex !important;
+  }
+  .navbar ul {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+  }
+}
