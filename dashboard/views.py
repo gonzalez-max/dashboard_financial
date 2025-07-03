@@ -9,7 +9,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from datetime import datetime
+from datetime import datetime, timedelta
+from functools import lru_cache
+import concurrent.futures
 
 
 
@@ -76,32 +78,51 @@ load_dotenv()
 FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY")
 
 
-def get_company_name(ticker):
-    """Devuelve el nombre de la empresa usando la API de Finnhub"""
+@lru_cache(maxsize=128)
+def get_company_name_cached(ticker):
+    """Devuelve el nombre de la empresa usando la API de Finnhub (con caché simple)"""
     url = f"https://finnhub.io/api/v1/stock/profile2?symbol={ticker}&token={FINNHUB_API_KEY}"
     response = requests.get(url)
     data = response.json()
-    return data.get("name", "")  # Devuelve "" si no encuentra nombre
+    return data.get("name", "")
 
-# noticias 
-def get_news_finnhub(ticker):
-    """Devuelve una lista de noticias para el ticker"""
-    url = f"https://finnhub.io/api/v1/company-news?symbol={ticker}&from=2023-01-01&to=2025-12-31&token={FINNHUB_API_KEY}"
+@lru_cache(maxsize=128)
+def get_news_finnhub_cached(ticker):
+    """Devuelve una lista de noticias para el ticker (con caché simple, solo últimos 10 días)"""
+    today = datetime.today()
+    from_date = (today - timedelta(days=10)).strftime("%Y-%m-%d")
+    to_date = today.strftime("%Y-%m-%d")
+    url = f"https://finnhub.io/api/v1/company-news?symbol={ticker}&from={from_date}&to={to_date}&token={FINNHUB_API_KEY}"
     response = requests.get(url)
     data = response.json()
-
     news_items = []
-    for item in data[:5]:  # Solo las primeras 5 noticias
+    for item in data[:5]:
         timestamp = item.get("datetime")
         fecha_legible = datetime.fromtimestamp(timestamp).strftime("%d/%m/%Y") if timestamp else "Sin fecha"
-
         news_items.append({
             'title': item.get("headline"),
             'link': item.get("url"),
             'published': fecha_legible,
         })
-
     return news_items
+
+@lru_cache(maxsize=128)
+def get_yfinance_info_cached(ticker):
+    """Devuelve info de yfinance para un ticker (con caché simple)"""
+    info = yf.Ticker(ticker).info
+    return {
+        'ticker': ticker,
+        'price': info.get('currentPrice'),
+        'changePercent': info.get('regularMarketChangePercent'),
+        'marketCap': info.get('marketCap'),
+        'peRatio': info.get('trailingPE'),
+        'error': None
+    }
+
+@lru_cache(maxsize=128)
+def get_yfinance_history_cached(ticker, period="1mo"):
+    """Devuelve el historial de yfinance para un ticker y periodo (con caché simple)"""
+    return yf.Ticker(ticker).history(period=period)
 
 # buscador de ticker 
 def stock_chart(request):
@@ -128,23 +149,25 @@ def stock_chart(request):
     if "compared_tickers" not in request.session:
         request.session["compared_tickers"] = []
 
-    compared_tickers = request.session["compared_tickers"]
+    # Asegurarse de que solo haya strings simples en la sesión
+    compared_tickers = [str(t).upper() for t in request.session["compared_tickers"] if isinstance(t, str)]
 
     # Remover ticker si se indicó
     if remove_ticker and remove_ticker in compared_tickers:
-        compared_tickers.remove(remove_ticker)
+        compared_tickers = [t for t in compared_tickers if t != remove_ticker]
         new_tickers = [t for t in new_tickers if t != remove_ticker]  # ✅ lo quitamos del input
+    # Eliminar duplicados y asegurar solo strings
+    compared_tickers = list(dict.fromkeys([t for t in compared_tickers if isinstance(t, str)]))
     request.session["compared_tickers"] = compared_tickers
     request.session.modified = True
 
-    
     # Agregar nuevos tickers desde el input (que no sea el principal)
     for t in new_tickers:
         if t != ticker and t not in compared_tickers and len(compared_tickers) < 5:
             compared_tickers.append(t)
 
-    # Guardar lista actualizada en sesión
-    request.session["compared_tickers"] = compared_tickers
+    # Guardar lista actualizada en sesión (solo strings simples)
+    request.session["compared_tickers"] = [str(t).upper() for t in compared_tickers if isinstance(t, str)]
 
     # Validar intervalo
     interval_map = {
@@ -160,33 +183,29 @@ def stock_chart(request):
     comparation = []
 
     try:
-        stock = yf.Ticker(ticker)
-        hist = stock.history(period="1mo")
+        hist = get_yfinance_history_cached(ticker, "1mo")
         if hist.empty:
             raise ValueError("No se encontraron datos para ese ticker.")
 
-        company_name = get_company_name(ticker)
-        news = get_news_finnhub(ticker)
+        company_name = get_company_name_cached(ticker)
+        news = get_news_finnhub_cached(ticker)
 
         # Armar la lista de tickers a comparar
         tickers_to_compare = [ticker] + compared_tickers
 
-        for t in tickers_to_compare:
-            try:
-                info = yf.Ticker(t).info
-                comparation.append({
-                    'ticker': t,
-                    'price': info.get('currentPrice'),
-                    'changePercent': info.get('regularMarketChangePercent'),
-                    'marketCap': info.get('marketCap'),
-                    'peRatio': info.get('trailingPE'),
-                    'error': None
-                })
-            except Exception as e:
-                comparation.append({
-                    'ticker': t,
-                    'error': f"Error al obtener datos de {t}: {e}"
-                })
+        # Usar ThreadPoolExecutor para obtener info de yfinance en paralelo
+        comparation = []
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            future_to_ticker = {executor.submit(get_yfinance_info_cached, t): t for t in tickers_to_compare}
+            for future in concurrent.futures.as_completed(future_to_ticker):
+                t = future_to_ticker[future]
+                try:
+                    comparation.append(future.result())
+                except Exception as e:
+                    comparation.append({
+                        'ticker': t,
+                        'error': f"Error al obtener datos de {t}: {e}"
+                    })
 
         return render(request, "dashboard/stock_chart.html", {
             "ticker": ticker,
