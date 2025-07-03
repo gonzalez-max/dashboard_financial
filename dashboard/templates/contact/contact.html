@@ -6,7 +6,7 @@
   {% load static %}
   <link rel="stylesheet" href="{% static 'dashboard/styles.css' %}">
   
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -15,13 +15,21 @@
   
   <header>
         <nav class="navbar">
+          <button class="hamburger" onclick="toggleMenu()">☰</button>
             <div>
-                <ul>
+                <ul id="nav-links">
                     <li class="nav-item"><a href="/">Inicio</a></li>
                     <li class="nav-item"><a href="#stock-form">Gráfico</a></li>
                     <li class="nav-item"><a href="contacto/">Contacto</a></li>
                 </ul>
             </div>
+            <label class="switch">
+            <input type="checkbox" id="theme-toggle"  aria-label="Alternar entre modo claro y oscuro">
+            <span class="slider">
+                <span class="icon-moon">🌙</span>
+                <span class="icon-sun">🌞</span>
+            </span>
+        </label>
         </nav>
     </header>
 
@@ -39,14 +47,6 @@
 <section class="contacto-container" id="contacto-container">
     <h1>¡ Mandanos un correo !</h1>
       <main class="container">
-        <label class="switch">
-            <input type="checkbox" id="theme-toggle"  aria-label="Alternar entre modo claro y oscuro">
-            <span class="slider">
-                <span class="icon-moon">🌙</span>
-                <span class="icon-sun">🌞</span>
-            </span>
-        </label>
-
    
     
     {% if messages %}
@@ -90,7 +90,12 @@
 
 
 
-
+<script>
+  function toggleMenu() {
+    const navLinks = document.getElementById('nav-links');
+    navLinks.classList.toggle('active');
+  }
+</script>
 
 
 <script>

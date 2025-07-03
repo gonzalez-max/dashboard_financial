@@ -979,6 +979,15 @@ input, select, button, textarea {
             cursor:pointer;
         }
 
+        body.dark-mode .hamburger{
+                background: none;
+                border: none;
+            }
+        body.dark-mode #nav-links {
+            background: rgba(100, 100, 100, 0.5); /* o el color oscuro que prefieras */
+            color: #fff;
+        }
+        
         /* --- MEDIA QUERIES OPTIMIZADAS Y RESPONSIVE UNIVERSAL --- */
 /* --- Móviles (hasta 600px) --- */
 @media (max-width: 600px) {
@@ -990,7 +999,7 @@ input, select, button, textarea {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
-    padding-top: 40px !important;
+    padding-top: 0 !important;
   }
   .container,
   .news-container,
@@ -1139,13 +1148,15 @@ input, select, button, textarea {
   #nav-links {
     display: none;
     flex-direction: column;
-    background: rgba(170, 170, 170, 0.95);
+    background: rgba(240, 240, 240, 0.5);
     position: absolute;
     top: 40px;
     left: 0;
     width: 100%;
     padding: 1rem 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
     border-radius: 0 0 12px 12px;
     text-align: center;
   }
@@ -1223,5 +1234,64 @@ input, select, button, textarea {
     right: 2vw;
     top: 4px;
     z-index: 2000;
+  }
+  .contacto-container {
+    max-width: 90vw !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 24px 4vw !important;
+    margin: 24px auto !important;
+    border-radius: 14px !important;
+    box-sizing: border-box !important;
+    background: rgba(170, 170, 170, 0.4) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.13) !important;
+  }
+  .contacto-container h1 {
+    font-size: clamp(1.7rem, 5vw, 2.2rem) !important;
+    margin-bottom: 1.2rem !important;
+    padding: 0 !important;
+    word-break: break-word;
+  }
+  .contacto-container label {
+    font-size: 1.1rem !important;
+    margin-bottom: 6px !important;
+  }
+  .contacto-container input[type="text"],
+  .contacto-container input[type="email"],
+  .contacto-container textarea {
+    font-size: 1.1rem !important;
+    padding: 12px 10px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin-bottom: 14px !important;
+    box-sizing: border-box !important;
+    border-radius: 10px !important;
+  }
+  .contacto-container textarea {
+    min-height: 100px !important;
+  }
+  .contacto-container button {
+    width: 100% !important;
+    font-size: 1.1rem !important;
+    padding: 14px 0 !important;
+    margin: 0 auto 12px auto !important;
+    display: block !important;
+    border-radius: 20px !important;
+  }
+  .contacto-container form {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.8rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .mensajes, .alerta {
+    font-size: 1rem !important;
+    padding: 12px 10px !important;
+    max-width: 95vw !important;
   }
 }
