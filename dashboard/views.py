@@ -106,16 +106,40 @@ def get_news_finnhub_cached(ticker):
         })
     return news_items
 
+def format_market_cap(value):
+    try:
+        value = float(value)
+    except (TypeError, ValueError):
+        return value
+    if value >= 1e12:
+        return f"{value/1e12:.2f}T"
+    elif value >= 1e9:
+        return f"{value/1e9:.2f}B"
+    elif value >= 1e6:
+        return f"{value/1e6:.2f}M"
+    else:
+        return str(value)
+
 @lru_cache(maxsize=128)
 def get_yfinance_info_cached(ticker):
     """Devuelve info de yfinance para un ticker (con caché simple)"""
     info = yf.Ticker(ticker).info
+    # Redondear valores a 2 decimales si existen
+    price = info.get('currentPrice')
+    if price is not None:
+        price = round(price, 2)
+    change_percent = info.get('regularMarketChangePercent')
+    if change_percent is not None:
+        change_percent = round(change_percent, 2)
+    pe_ratio = info.get('trailingPE')
+    if pe_ratio is not None:
+        pe_ratio = round(pe_ratio, 2)
     return {
         'ticker': ticker,
-        'price': info.get('currentPrice'),
-        'changePercent': info.get('regularMarketChangePercent'),
-        'marketCap': info.get('marketCap'),
-        'peRatio': info.get('trailingPE'),
+        'price': price,
+        'changePercent': change_percent,
+        'marketCap': format_market_cap(info.get('marketCap')),
+        'peRatio': pe_ratio,
         'error': None
     }
 

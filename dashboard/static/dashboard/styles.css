@@ -557,6 +557,11 @@ input, select, button, textarea {
             cursor:pointer;
         }
 
+        .positivo { color: green; font-weight: bold; }
+        .negativo { color: red; font-weight: bold; }
+
+
+
         /*______________________________Botón de eliminar_________________*/
         .tabla-comparador a {
             display: inline-block;
@@ -581,7 +586,7 @@ input, select, button, textarea {
             z-index: 999;
         }
         
-
+/*______________________________________________________*/
 
         ul {
             list-style-type: none;

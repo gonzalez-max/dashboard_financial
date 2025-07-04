@@ -141,7 +141,9 @@
             <tr>
                 <td>{{ item.ticker }}</td>
                 <td>{{ item.price }}</td>
-                <td>{{ item.changePercent }}%</td>
+                <td class="{% if item.changePercent > 0 %}positivo{% elif item.changePercent < 0 %}negativo{% endif %}">
+                    {{ item.changePercent }}%
+                </td>
                 <td>{{ item.marketCap }}</td>
                 <td>{{ item.peRatio }}</td>
                 <td style="text-align: center;">
