@@ -126,14 +126,14 @@
 
     {% if comparacion %}
     <table class="tabla-comparador">
-        <thead>
+        <thead style="cursor: pointer;">
             <tr>
-                <th>Ticker</th>
-                <th>Precio</th>
-                <th>% Cambio</th>
-                <th>Market Cap</th>
-                <th>P/E Ratio</th>
-                <th style="text-align: center;">Eliminar</th>
+                <th title="Símbolo bursátil (Ticker)">Ticker</th>
+                <th title="Último precio de la acción">Precio</th>
+                <th title="Cambio porcentual diario">% Cambio</th>
+                <th title="Valor de mercado total de la empresa">Market Cap</th>
+                <th title="Relación precio/ganancias">P/E Ratio</th>
+                <th style="text-align: center;" title="Quitar este ticker de la comparación">Eliminar</th>
             </tr>
         </thead>
         <tbody>
