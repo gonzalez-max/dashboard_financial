@@ -147,6 +147,7 @@
                 <td style="text-align: center;">
                     {% if item.ticker != ticker %}
                     <a href="?ticker={{ ticker }}&tickers={{ tickers_input|urlencode }}&remove={{ item.ticker }}"
+                       class="btn-remove-ticker"
                        title="Eliminar"
                        style="display: inline-block; padding: 4px 8px; background-color: #f44336; color: white; border-radius: 4px; text-decoration: none;">✖</a>
                     {% endif %}
@@ -360,6 +361,24 @@ window.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('scroll', onScroll);
   onScroll(); // Por si ya está visible al cargar
 });
+</script>
+<!-- Antes de </body>, agrega este script para mantener la posición de scroll al eliminar un ticker -->
+<script>
+  // Guardar la posición de scroll antes de recargar al eliminar un ticker
+  document.querySelectorAll('.btn-remove-ticker').forEach(btn => {
+      btn.addEventListener('click', function() {
+          localStorage.setItem('scrollPos', window.scrollY);
+      });
+  });
+
+  // Restaurar la posición de scroll después de recargar
+  window.addEventListener('DOMContentLoaded', function() {
+      const scrollPos = localStorage.getItem('scrollPos');
+      if (scrollPos) {
+          window.scrollTo(0, parseInt(scrollPos, 10));
+          localStorage.removeItem('scrollPos');
+      }
+  });
 </script>
 </body>
 </html>
