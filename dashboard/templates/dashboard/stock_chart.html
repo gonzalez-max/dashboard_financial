@@ -139,7 +139,13 @@
         <tbody>
             {% for item in comparacion %}
             <tr>
-                <td>{{ item.ticker }}</td>
+                <!-- Antes del ticker -->
+<td>
+  {% if item.domain %}
+    <img src="https://logo.clearbit.com/{{ item.domain }}" width="20" style="vertical-align: middle; margin-right: 6px;">
+  {% endif %}
+  {{ item.ticker }}
+</td>
                 <td>{{ item.price }}</td>
                 <td class="{% if item.changePercent > 0 %}positivo{% elif item.changePercent < 0 %}negativo{% endif %}">
                     {{ item.changePercent }}%

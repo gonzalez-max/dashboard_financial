@@ -134,12 +134,17 @@ def get_yfinance_info_cached(ticker):
     pe_ratio = info.get('trailingPE')
     if pe_ratio is not None:
         pe_ratio = round(pe_ratio, 2)
+    website = info.get('website', '')
+    domain = ''
+    if website:
+        domain = website.replace('http://', '').replace('https://', '').split('/')[0]
     return {
         'ticker': ticker,
         'price': price,
         'changePercent': change_percent,
         'marketCap': format_market_cap(info.get('marketCap')),
         'peRatio': pe_ratio,
+        'domain': domain,
         'error': None
     }
 
