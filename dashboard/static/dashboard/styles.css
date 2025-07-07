@@ -281,6 +281,24 @@ input, select, button, textarea {
             transition: color 0.3s ease;
         }
 
+        .logo {
+            height: 44px; /* o prueba 48px */
+            margin-right: 18px;
+            margin-left: 8px;
+            vertical-align: middle;
+            transition: opacity 0.2s;
+        
+        }
+        .logo-dark { display: none; }
+        .logo-light { display: inline; }
+
+        body.dark-mode .logo-dark { display: inline; }
+        body.dark-mode .logo-light { display: none; }
+        body.light-mode .logo-dark { display: none; }
+        body.light-mode .logo-light { display: inline; }
+
+
+
         /* Botón hamburguesa */
         .hamburger {
                 display: none;
@@ -840,6 +858,14 @@ input, select, button, textarea {
             color: #d08cff;
         }
 
+        body.dark-mode .hamburger{
+                background: none;
+                border: none;
+            }
+        body.dark-mode #nav-links {
+            background: none; /* o el color oscuro que prefieras */
+            color: #fff;
+        }
         /*__________________footer dark-mode_________________*/
         body.dark-mode .footer {
             background-color: rgba(84, 84, 84, 0.3);
@@ -987,14 +1013,6 @@ input, select, button, textarea {
             cursor:pointer;
         }
 
-        body.dark-mode .hamburger{
-                background: none;
-                border: none;
-            }
-        body.dark-mode #nav-links {
-            background: rgba(100, 100, 100, 0.5); /* o el color oscuro que prefieras */
-            color: #fff;
-        }
         
         /* --- MEDIA QUERIES OPTIMIZADAS Y RESPONSIVE UNIVERSAL --- */
 /* --- Móviles (hasta 600px) --- */
@@ -1022,6 +1040,11 @@ input, select, button, textarea {
     box-sizing: border-box;
     padding: 0 3vw;
   }
+
+  body.dark-mode #nav-links {
+            background:  rgba(100, 100, 100, 0.5); /* o el color oscuro que prefieras */
+            color: #fff;
+        }
   .contenedor-noticias-widget {
     display: flex !important;
     flex-direction: column !important;
@@ -1178,6 +1201,27 @@ input, select, button, textarea {
     width: 100vw !important;
     margin: 0 !important;
     box-sizing: border-box;
+  }
+
+  .navbar-logo {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100vw !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 48px;
+    z-index: 1001;
+    pointer-events: auto;
+    align-content: center;
+  }
+  .logo {
+    margin: 0 !important;
+    height: 40px !important;
+    display: block;
   }
 }
 
