@@ -264,39 +264,50 @@
             };
         }
 
-        // Evento input con debounce
-        tickerInput.addEventListener('input', debounce(async function () {
-            const query = this.value.trim();
+        // Antes de agregar el listener, elimínalo si ya existe
+tickerInput.removeEventListener('input', tickerInput._debouncedInputListener || (()=>{}));
+tickerInput._debouncedInputListener = debounce(async function () {
+    const query = this.value.trim();
 
-            if (query.length < 1) {
+    if (query.length < 1) {
+        suggestionsBox.innerHTML = '';
+        return;
+    }
+
+    suggestionsBox.innerHTML = '<div>Cargando...</div>';
+
+    try {
+        const response = await fetch(`/autocomplete/?query=${query}`);
+        const data = await response.json();
+
+        // Solo actualiza si el contenido realmente cambió
+function updateSuggestions(newHtml) {
+    if (suggestionsBox.innerHTML !== newHtml) {
+        suggestionsBox.innerHTML = newHtml;
+    }
+}
+
+        updateSuggestions('');
+        data.slice(0, 3).forEach(item => {
+            const div = document.createElement('div');
+            div.textContent = `${item.symbol} - ${item.description}`;
+            div.style.padding = '8px';
+            div.style.cursor = 'pointer';
+            div.dataset.symbol = item.symbol;
+            div.addEventListener('click', () => {
+                tickerInput.value = item.symbol;
                 suggestionsBox.innerHTML = '';
-                return;
-            }
+                window.location.href = `/?ticker=${item.symbol}`;
+            });
+            suggestionsBox.appendChild(div);
+        });
+    } catch (error) {
+        suggestionsBox.innerHTML = '<div>Error al buscar</div>';
+        console.error(error);
+    }
+}, 200); // 300 ms de espera
 
-            suggestionsBox.innerHTML = '<div>Cargando...</div>';
-
-            try {
-                const response = await fetch(`/autocomplete/?query=${query}`);
-                const data = await response.json();
-
-                suggestionsBox.innerHTML = '';
-                data.slice(0, 3).forEach(item => {
-                    const div = document.createElement('div');
-                    div.textContent = `${item.symbol} - ${item.description}`;
-                    div.style.padding = '8px';
-                    div.style.cursor = 'pointer';
-                    div.addEventListener('click', () => {
-                        tickerInput.value = item.symbol;
-                        suggestionsBox.innerHTML = '';
-                        window.location.href = `/?ticker=${item.symbol}`;
-                    });
-                    suggestionsBox.appendChild(div);
-                });
-            } catch (error) {
-                suggestionsBox.innerHTML = '<div>Error al buscar</div>';
-                console.error(error);
-            }
-        }, 200)); // 300 ms de espera
+tickerInput.addEventListener('input', tickerInput._debouncedInputListener);
 
         // Ocultar sugerencias al hacer clic fuera
         document.addEventListener('click', function (e) {
