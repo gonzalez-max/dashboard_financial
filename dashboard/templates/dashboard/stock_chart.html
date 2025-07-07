@@ -73,14 +73,26 @@
 
         
         
-        <h2><strong>Gráfico de:</strong> {{ company_name }}</h2>
+        <h2>
+  <strong>Gráfico de:</strong> {{ company_name }}
+  {% if domain %}
+    <img src="https://logo.clearbit.com/{{ domain }}"
+         alt="Logo de {{ company_name }}" style="vertical-align: middle; margin-left: 8px; height: 24px;">
+  {% endif %}
+</h2>
 
         <div class="chart-container">
             <!-- Widget de TradingView -->
             <div id="tradingview-widget" style="width: 100%; height: 100%;"></div>
         </div>
 
-        <h2 class ="titulo-news" id="news-widget"><strong>Últimas noticias:</strong> {{ company_name }}</h2>
+        <h2 class="titulo-news" id="news-widget">
+            <strong>Últimas noticias:</strong> {{ company_name }}
+            {% if domain %}
+                <img src="https://logo.clearbit.com/{{ domain }}"
+                         alt="Logo de {{ company_name }}" style="vertical-align: middle; margin-left: 8px; height: 24px;">
+            {% endif %}
+        </h2>
         <div class="contenedor-noticias-widget">
     <!-- Noticias -->
     <section style="flex: 2; " aria-labelledby="news-title">

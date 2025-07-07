@@ -236,6 +236,13 @@ def stock_chart(request):
                         'error': f"Error al obtener datos de {t}: {e}"
                     })
 
+        # Buscar el dominio del ticker principal
+        domain = ""
+        for item in comparation:
+            if item.get("ticker") == ticker:
+                domain = item.get("domain", "")
+                break
+
         return render(request, "dashboard/stock_chart.html", {
             "ticker": ticker,
             "interval": interval,
@@ -243,7 +250,8 @@ def stock_chart(request):
             "news": news,
             "timeframe": timeframe,
             "comparacion": comparation,
-            "tickers_input": ",".join([ticker] + compared_tickers)
+            "tickers_input": ",".join([ticker] + compared_tickers),
+            "domain": domain,  # <-- Agregado aquí
         })
 
     except Exception as e:
