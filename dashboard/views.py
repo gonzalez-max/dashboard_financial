@@ -138,6 +138,7 @@ def get_yfinance_info_cached(ticker):
     domain = ''
     if website:
         domain = website.replace('http://', '').replace('https://', '').split('/')[0]
+    company_name = info.get('shortName', '')
     return {
         'ticker': ticker,
         'price': price,
@@ -145,6 +146,7 @@ def get_yfinance_info_cached(ticker):
         'marketCap': format_market_cap(info.get('marketCap')),
         'peRatio': pe_ratio,
         'domain': domain,
+        'companyName': company_name,
         'error': None
     }
 
@@ -185,18 +187,24 @@ def stock_chart(request):
     if remove_ticker and remove_ticker in compared_tickers:
         compared_tickers = [t for t in compared_tickers if t != remove_ticker]
         new_tickers = [t for t in new_tickers if t != remove_ticker]  # ✅ lo quitamos del input
-    # Eliminar duplicados y asegurar solo strings
-    compared_tickers = list(dict.fromkeys([t for t in compared_tickers if isinstance(t, str)]))
-    request.session["compared_tickers"] = compared_tickers
-    request.session.modified = True
 
     # Agregar nuevos tickers desde el input (que no sea el principal)
     for t in new_tickers:
         if t != ticker and t not in compared_tickers and len(compared_tickers) < 5:
             compared_tickers.append(t)
 
-    # Guardar lista actualizada en sesión (solo strings simples)
-    request.session["compared_tickers"] = [str(t).upper() for t in compared_tickers if isinstance(t, str)]
+    # Eliminar duplicados usando set y mantener el orden
+    seen = set()
+    compared_tickers_clean = []
+    for t in compared_tickers:
+        if t not in seen:
+            compared_tickers_clean.append(t)
+            seen.add(t)
+
+    # Solo actualiza la sesión si realmente cambió la lista de tickers
+    if compared_tickers_clean != request.session.get("compared_tickers", []):
+        request.session["compared_tickers"] = compared_tickers_clean
+        request.session.modified = True
 
     # Validar intervalo
     interval_map = {
@@ -221,15 +229,28 @@ def stock_chart(request):
 
         # Armar la lista de tickers a comparar
         tickers_to_compare = [ticker] + compared_tickers
+        tickers_to_compare = list(dict.fromkeys(tickers_to_compare))  # Elimina duplicados manteniendo el orden
 
-        # Usar ThreadPoolExecutor para obtener info de yfinance en paralelo
+        # Usar ThreadPoolExecutor solo si hay más de 2 tickers a comparar
         comparation = []
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            future_to_ticker = {executor.submit(get_yfinance_info_cached, t): t for t in tickers_to_compare}
-            for future in concurrent.futures.as_completed(future_to_ticker):
-                t = future_to_ticker[future]
+        if len(tickers_to_compare) > 2:
+            max_workers = min(5, len(tickers_to_compare))
+            with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+                future_to_ticker = {executor.submit(get_yfinance_info_cached, t): t for t in tickers_to_compare}
+                for future in concurrent.futures.as_completed(future_to_ticker):
+                    t = future_to_ticker[future]
+                    try:
+                        comparation.append(future.result())
+                    except Exception as e:
+                        comparation.append({
+                            'ticker': t,
+                            'error': f"Error al obtener datos de {t}: {e}"
+                        })
+        else:
+            # Para 2 o menos tickers, ejecuta en serie (más eficiente para pocos)
+            for t in tickers_to_compare:
                 try:
-                    comparation.append(future.result())
+                    comparation.append(get_yfinance_info_cached(t))
                 except Exception as e:
                     comparation.append({
                         'ticker': t,
@@ -241,6 +262,13 @@ def stock_chart(request):
         for item in comparation:
             if item.get("ticker") == ticker:
                 domain = item.get("domain", "")
+                break
+
+        # Después de obtener comparation
+        company_name = ""
+        for item in comparation:
+            if item.get("ticker") == ticker:
+                company_name = item.get("companyName") or get_company_name_cached(ticker)
                 break
 
         return render(request, "dashboard/stock_chart.html", {
