@@ -25,8 +25,10 @@ protobuf==5.29.4
 pycparser==2.22
 pyparsing==3.2.3
 python-dateutil==2.9.0.post0
+python-dotenv==1.1.0
 pytz==2025.2
 requests==2.32.3
+sgmllib3k==1.0.0
 six==1.17.0
 soupsieve==2.7
 sqlparse==0.5.3
@@ -35,3 +37,5 @@ tzdata==2025.2
 urllib3==2.4.0
 websockets==15.0.1
 yfinance==0.2.59
+whitenoise
+gunicorn
