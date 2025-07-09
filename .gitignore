@@ -1,4 +1,4 @@
 .env
 env
-settings.py
+#settings.py
 manage.py
