@@ -10,11 +10,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="icon" href="{% static 'dashboard/favicon.png' %}" type="image/png">
 </head>
 <body>
   
   <header>
         <nav class="navbar">
+          <a href="/" class="navbar-logo">
+                <img src="{% static 'dashboard/Logo_black.png' %}" alt="Logo" class="logo logo-light">
+                <img src="{% static 'dashboard/Logo_white.png' %}" alt="Logo" class="logo logo-dark">
+            </a>
           <button class="hamburger" onclick="toggleMenu()">☰</button>
             <div>
                 <ul id="nav-links">
