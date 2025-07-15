@@ -21,9 +21,10 @@ Este proyecto fue desarrollado utilizando **Python** y el framework web **Django
 
 - Consulta de empresas por ticker
 - Visualización de datos clave (precio, % cambio, P/E ratio, etc.)
-- Gráficos de evolución del precio
+- Gráficos en tiempo real
 - Interfaz limpia, responsiva y pensada para análisis visual
 - Buscador de activos en tiempo real
+- Comparador de empresas 
 
 ---
 
