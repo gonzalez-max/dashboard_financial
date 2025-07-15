@@ -1,6 +1,6 @@
-# 📊 Dashboard Financiero Interactivo
+# 📊 FinDash Dashboard Financiero Interactivo
 
-Bienvenido/a al repositorio de **Dashboard Financiero**, un proyecto personal enfocado en brindar una plataforma web intuitiva y dinámica para visualizar información financiera clave sobre tus empresas favoritas.
+Bienvenido/a al repositorio de **FinDash**, un proyecto personal enfocado en brindar una plataforma web intuitiva y dinámica para visualizar información financiera clave sobre tus empresas favoritas.
 
 Este proyecto fue desarrollado utilizando **Python** y el framework web **Django**, integrando APIs financieras y gráficos interactivos para ofrecer una experiencia clara y funcional al usuario.
 
@@ -29,7 +29,7 @@ Este proyecto fue desarrollado utilizando **Python** y el framework web **Django
 
 ## 🌐 Acceso al Proyecto Online
 
-🔗 [Acceder al Dashboard Online](https://TU-LINK-AQUI.reflex.run/)
+🔗 [Acceder al Dashboard Online]([https://dashboard-financial.onrender.com])
 
 > ⚠️ Si el proyecto no está disponible momentáneamente por límite de recursos, podés verlo en el repositorio o contactarme para una demo activa.
 
