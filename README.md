@@ -29,7 +29,7 @@ Este proyecto fue desarrollado utilizando **Python** y el framework web **Django
 
 ## 🌐 Acceso al Proyecto Online
 
-🔗 [Acceder al Dashboard Online]([https://dashboard-financial.onrender.com])
+🔗 [Acceder al Dashboard Online][https://dashboard-financial.onrender.com]
 
 > ⚠️ Si el proyecto no está disponible momentáneamente por límite de recursos, podés verlo en el repositorio o contactarme para una demo activa.
 
@@ -40,12 +40,27 @@ Este proyecto fue desarrollado utilizando **Python** y el framework web **Django
 ### 🏠 Pantalla principal
 *Visualización general del dashboard con datos clave y gráficos.*
 
-![Captura Dashboard](assets/dashboard_home.png)
+<img width="1352" height="610" alt="captura web 1" src="https://github.com/user-attachments/assets/fffebd36-ffe3-461c-8234-29a93219af3f" />
 
-### 🔍 Búsqueda por empresa
-*Interfaz para ingresar ticker y consultar información.*
+### 🔍 Búsqueda por empresa y graficos personalizados
+*Interfaz para ingresar ticker y ver graficos en tiempo real.*
 
-![Captura Búsqueda](assets/search_module.png)
+<img width="1352" height="609" alt="captura web 2" src="https://github.com/user-attachments/assets/65987e4b-9ed3-4770-9892-83dc49fc68d7"/>
+
+### 📊 Comparador de empresas o tickers
+*Tabla para comparar tus tickers favoitos.*
+
+<img width="1346" height="606" alt="captura web 3" src="https://github.com/user-attachments/assets/311fb715-8267-4a08-b810-2f6cbba74de6" />
+
+### 🌙 Dark-mode
+*Modo obscuro para mas comodidad visual*
+
+<img width="1352" height="609" alt="captura web 4" src="https://github.com/user-attachments/assets/ecee7d31-cd1f-4c74-b2da-23930386a305" />
+
+### 📰 Noticias y widget informativo
+*Apartado de noticias y widget informativo para tomar mejores desiciones*
+
+<img width="1353" height="613" alt="captura web 5" src="https://github.com/user-attachments/assets/11cdaf40-ca0b-4e49-8326-6bbe56097cee" />
 
 ---
 
@@ -53,12 +68,12 @@ Este proyecto fue desarrollado utilizando **Python** y el framework web **Django
 
 ¿Tienes dudas, sugerencias o te interesa colaborar?
 
-📩 Podés escribirme vía [LinkedIn](https://www.linkedin.com/in/maximiliano-gonzalez-479691323)  
+📩 Podés escribirme vía [LinkedIn](www.linkedin.com/in/maximiliano-gonzalez-479691323)  
 o abrir un [Issue](../../issues) en este repositorio.
 
 ---
 
 ## ✨ Sobre mí
 
-Soy **Maximiliano González**, desarrollador web orientado al uso de **Python + Reflex** para crear soluciones digitales educativas y financieras. Este proyecto forma parte de mi portfolio profesional y refleja mi interés en tecnología, datos y finanzas.
+Soy **Maximiliano González**, desarrollador web orientado al uso de **Python** para crear soluciones digitales educativas y financieras. Este proyecto forma parte de mi portfolio profesional y refleja mi interés en tecnología, datos y finanzas.
 
