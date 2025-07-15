@@ -12,8 +12,8 @@ Este proyecto fue desarrollado utilizando **Python** y el framework web **Django
 - ⚙️ **Django** (Framework Web fullstack en Python)
 - 🧮 **APIs financieras** (ej. Yahoo Finance)
 - 📈 **APIs gráficos financieros** (Tradingview)
-- 🎨 **HTML/CSS** (generado automáticamente por Reflex)
-- ☁️ **Render Cloud Hosting** (o la plataforma en la que esté alojado)
+- 🎨 **HTML/CSS** (Estructura y visuales)
+- ☁️ **Render Cloud Hosting** (Alojada en Render)
 
 ---
 
@@ -68,8 +68,8 @@ Este proyecto fue desarrollado utilizando **Python** y el framework web **Django
 
 ¿Tienes dudas, sugerencias o te interesa colaborar?
 
-📩 Podés escribirme vía [LinkedIn](www.linkedin.com/in/maximiliano-gonzalez-479691323)  
-o abrir un [Issue](../../issues) en este repositorio.
+[💼 LinkedIn](https://www.linkedin.com/in/maximiliano-gonzalez-479691323)  
+[📁 Otros proyectos en GitHub](https://github.com/gonzalez-max?tab=repositories)
 
 ---
 
