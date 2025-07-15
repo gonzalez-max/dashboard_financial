@@ -9,9 +9,9 @@ Este proyecto fue desarrollado utilizando **Python** y el framework web **Django
 ## 🚀 Tecnologías Utilizadas
 
 - 🐍 **Python 3.10+**
-- ⚙️ **Django* (Framework Web fullstack en Python)
+- ⚙️ **Django** (Framework Web fullstack en Python)
 - 🧮 **APIs financieras** (ej. Yahoo Finance)
-- 📈 **APIs gráficos financieros ** (Tradingview)
+- 📈 **APIs gráficos financieros** (Tradingview)
 - 🎨 **HTML/CSS** (generado automáticamente por Reflex)
 - ☁️ **Render Cloud Hosting** (o la plataforma en la que esté alojado)
 
