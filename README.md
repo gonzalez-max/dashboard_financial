@@ -1,8 +1,8 @@
 # 📊 FinDash Dashboard Financiero Interactivo
 
-Bienvenido/a al repositorio de **FinDash**, un proyecto personal enfocado en brindar una plataforma web intuitiva y dinámica para visualizar información financiera clave sobre tus empresas favoritas.
+Bienvenido/a al repositorio de **FinDash**, un proyecto que desarrollé para ofrecer una plataforma web dinámica que permite visualizar de manera intuitiva e interactiva la información financiera más relevante de tus empresas favoritas.
 
-Este proyecto fue desarrollado utilizando **Python** y el framework web **Django**, integrando APIs financieras y gráficos interactivos para ofrecer una experiencia clara y funcional al usuario.
+El proyecto está desarrollado en **Python** y el framework web **Django**, integrando APIs que permiten obtener información financiera y gráficos que permiten visualizar los datos de una forma clara y funcional para el usuario.
 
 ---
 
