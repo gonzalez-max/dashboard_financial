@@ -55,26 +55,38 @@
 <div class="glass-divider"></div>
 
     <main class="container" id="search-ticker">
-        <h1>Inserte un ticker para empezar</h1>
+    <h1>Inserte un ticker para empezar</h1>
 
-        <form method="get" id="stock-form">
-            <div style="position: relative; width: 300px; display: inline-block; ">
-                <label for="ticker">Ticker:</label>
-                <input type="text" id="ticker" name="ticker" placeholder="Ej: AAPL, TSLA, MELI" autocomplete="on"
-                    required style="width: 100%;" value="{{ ticker }}">
-                <div id="suggestions"></div>
-            </div>
-            
-            <div style="display: flex; flex-direction: column; margin-left: 5px;">
-                <label for="period">Periodo:</label>
-                <select name="period" onchange="document.getElementById('stock-form').submit();">
-                    <option value="1d" {% if timeframe == "1d" %}selected{% endif %}>1 Día</option>
-                    <option value="1wk" {% if timeframe == "1wk" %}selected{% endif %}>1 Semana</option>
-                    <option value="1mo" {% if timeframe == "1mo" %}selected{% endif %}>1 Mes</option>
-                    <option value="1y" {% if timeframe == "1y" %}selected{% endif %}>1 Año</option>
-                </select>
-            </div>
-        </form>
+    <form method="get" id="stock-form">
+        <div style="position: relative; width: 300px; display: inline-block;">
+            <label for="ticker">Ticker:</label>
+            <input 
+                type="text" 
+                id="ticker" 
+                name="ticker" 
+                placeholder="Ej: AAPL, TSLA, MELI" 
+                autocomplete="on"
+                required 
+                style="width: 100%;" 
+                value="{{ ticker }}">
+            <div id="suggestions"></div> <!-- Útil si estás haciendo autocompletado dinámico -->
+        </div>
+        
+        <div style="display: flex; flex-direction: column; margin-left: 5px;">
+            <label for="period">Periodo:</label>
+            <select 
+                name="period" 
+                id="period" 
+                onchange="document.getElementById('stock-form').submit();">
+                <option value="1d" {% if timeframe == "1d" %}selected{% endif %}>1 Día</option>
+                <option value="1wk" {% if timeframe == "1wk" %}selected{% endif %}>1 Semana</option>
+                <option value="1mo" {% if timeframe == "1mo" %}selected{% endif %}>1 Mes</option>
+                <option value="1y" {% if timeframe == "1y" %}selected{% endif %}>1 Año</option>
+            </select>
+        </div>
+    </form>
+</main>
+
 
         
         
@@ -135,11 +147,20 @@
 <section id="comparador" style="margin-top: 100px; margin-bottom: 100px;">
     <h2>📊 Comparador de Empresas</h2>
     <form method="get">
-        <label for="tickers">Ingresá los tickers separados por coma:</label><br>
-        <input type="text" name="tickers" placeholder="AAPL, TSLA, MSFT" style="width: 300px;" value="{{ tickers_input }}">
-        <input type="hidden" name="ticker" value="{{ ticker }}"> <!-- ✅ Conserva el ticker principal -->
+        <label for="tickers_input">Ingresá los tickers separados por coma:</label><br>
+        <input 
+            type="text" 
+            id="tickers_input" 
+            name="tickers" 
+            placeholder="AAPL, TSLA, MSFT" 
+            style="width: 300px;" 
+            value="{{ tickers_input }}">
+        
+        <input type="hidden" name="ticker" value="{{ ticker }}">
         <button type="submit">Comparar</button>
     </form>
+</section>
+
 
     {% if comparacion %}
     <table class="tabla-comparador">
