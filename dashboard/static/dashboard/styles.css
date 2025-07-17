@@ -1089,12 +1089,14 @@ input, select, button, textarea {
   }
   .switch {
     right: 4vw;
-    top: 8px;
+    top: 4px;
     width: 44px;
     height: 22px;
     position: fixed;
     display: inline-block;
   }
+  
+
   .widget-container {
     padding: 0 !important;
     border-radius: 0 !important;
@@ -1209,11 +1211,11 @@ input, select, button, textarea {
     width: 100vw !important;
     margin: 0 auto !important;
     padding: 0 !important;
-    position: absolute;
+    /*position: absolute;*/
     left: 0;
     right: 0;
     top: 0;
-    height: 48px;
+    /*height: 48px;*/
     z-index: 1001;
     pointer-events: auto;
     align-content: center;
