@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-inseguro-para-dev')# SECURITY WAR
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']# Application definition
+ALLOWED_HOSTS = ['dashboard-financial.onrender.com']# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
