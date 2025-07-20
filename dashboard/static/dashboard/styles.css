@@ -1044,6 +1044,8 @@ input, select, button, textarea {
   body.dark-mode #nav-links {
             background:  rgba(100, 100, 100, 0.5); /* o el color oscuro que prefieras */
             color: #fff;
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
         }
   .contenedor-noticias-widget {
     display: flex !important;
@@ -1174,6 +1176,8 @@ input, select, button, textarea {
     justify-content: space-between;
     padding: 0.1em;
     box-sizing: border-box;
+    
+    
   }
   .hamburger {
     position: absolute;
@@ -1191,17 +1195,17 @@ input, select, button, textarea {
   #nav-links {
     display: none;
     flex-direction: column;
-    background: rgba(240, 240, 240, 0.5);
+    background: rgba(240, 240, 240, 0.8);
     position: absolute;
     top: 40px;
     left: 0;
     width: 100%;
     padding: 1rem 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
     border-radius: 0 0 12px 12px;
     text-align: center;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
   }
   #nav-links.active {
     display: flex !important;
@@ -1357,5 +1361,26 @@ input, select, button, textarea {
     font-size: 1rem !important;
     padding: 12px 10px !important;
     max-width: 95vw !important;
+  }
+
+  .navbar-logo {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100vw !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    /*position: absolute;*/
+    left: 0;
+    right: 0;
+    top: 0;
+    /*height: 48px;*/
+    z-index: 1001;
+    pointer-events: auto;
+    align-content: center;
+  }
+  .logo {
+    margin: 0 !important;
+    height: 40px !important;
+    display: block;
   }
 }
