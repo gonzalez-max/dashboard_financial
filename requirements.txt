@@ -38,3 +38,4 @@ urllib3==2.4.0
 websockets==15.0.1
 whitenoise==6.9.0
 yfinance==0.2.59
+gunicorn==21.2.0
