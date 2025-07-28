@@ -14,9 +14,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent# Quick-start development setti
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-inseguro-para-dev')# SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = 'True'
 
-ALLOWED_HOSTS = ['dashboard-financial.onrender.com']# Application definition
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -94,7 +94,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')# Opcional (si usás archivos locales además de los de apps)
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]# Para producción con WhiteNoise
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'dashboard/static'),)# Para producción con WhiteNoise
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 

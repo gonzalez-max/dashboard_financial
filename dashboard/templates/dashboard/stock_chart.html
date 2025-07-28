@@ -7,8 +7,8 @@
     <title>Dashboard Financiero</title>
     
     {% load static %}
-    <link rel="stylesheet" href="{% static 'dashboard/styles.css' %}">
-    
+    <link rel="stylesheet" href="{% static 'styles/styles.css' %}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -20,8 +20,8 @@
     <header>
         <nav class="navbar">
             <a href="/" class="navbar-logo">
-                <img src="{% static 'dashboard/Logo_black.png' %}" alt="Logo" class="logo logo-light">
-                <img src="{% static 'dashboard/Logo_white.png' %}" alt="Logo" class="logo logo-dark">
+                <img src="{% static 'imagenes/Logo_black.png' %}" alt="Logo" class="logo logo-light">
+                <img src="{% static 'imagenes/Logo_white.png' %}" alt="Logo" class="logo logo-dark">
             </a>
             <button class="hamburger" onclick="toggleMenu()">☰</button>
             <div>
@@ -160,51 +160,48 @@
         <input type="hidden" name="ticker" value="{{ ticker }}">
         <button type="submit">Comparar</button>
     </form>
-</section>
-
 
     {% if comparacion %}
-    <table class="tabla-comparador">
-        <thead style="cursor: pointer;">
-            <tr>
-                <th title="Símbolo bursátil (Ticker)">Ticker</th>
-                <th title="Último precio de la acción">Precio</th>
-                <th title="Cambio porcentual diario">% Cambio</th>
-                <th title="Valor de mercado total de la empresa">Market Cap</th>
-                <th title="Relación precio/ganancias">P/E Ratio</th>
-                <th style="text-align: center;" title="Quitar este ticker de la comparación">Eliminar</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in comparacion %}
-            <tr>
-                <!-- Antes del ticker -->
-<td>
-  {% if item.domain %}
-    <img src="https://logo.clearbit.com/{{ item.domain }}" width="20" style="vertical-align: middle; margin-right: 6px;">
-  {% endif %}
-  {{ item.ticker }}
-</td>
-                <td>{{ item.price }}</td>
-                <td class="{% if item.changePercent > 0 %}positivo{% elif item.changePercent < 0 %}negativo{% endif %}">
-                    {{ item.changePercent }}%
-                </td>
-                <td>{{ item.marketCap }}</td>
-                <td>{{ item.peRatio }}</td>
-                <td style="text-align: center;">
-                    {% if item.ticker != ticker %}
-                    <a href="?ticker={{ ticker }}&tickers={{ tickers_input|urlencode }}&remove={{ item.ticker }}"
-                       class="btn-remove-ticker"
-                       title="Eliminar"
-                       style="display: inline-block; padding: 4px 8px; background-color: #f44336; color: white; border-radius: 4px; text-decoration: none;">✖</a>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div style="overflow-x: auto;">
+        <table class="tabla-comparador">
+            <thead>
+                <tr>
+                    <th>Ticker</th>
+                    <th>Precio</th>
+                    <th>% Cambio</th>
+                    <th>Market Cap</th>
+                    <th>P/E Ratio</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in comparacion %}
+                <tr>
+                    <td>
+                        {% if item.domain %}
+                        <img src="https://logo.clearbit.com/{{ item.domain }}" width="20" style="vertical-align: middle; margin-right: 6px;">
+                        {% endif %}
+                        {{ item.ticker }}
+                    </td>
+                    <td>{{ item.price }}</td>
+                    <td class="{% if item.changePercent > 0 %}positivo{% elif item.changePercent < 0 %}negativo{% endif %}">
+                        {{ item.changePercent }}%
+                    </td>
+                    <td>{{ item.marketCap }}</td>
+                    <td>{{ item.peRatio }}</td>
+                    <td>
+                        {% if item.ticker != ticker %}
+                        <a href="?ticker={{ ticker }}&tickers={{ tickers_input|urlencode }}&remove={{ item.ticker }}">✖</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     {% endif %}
 </section>
+
 
 
 
@@ -239,6 +236,7 @@
   function toggleMenu() {
     const navLinks = document.getElementById('nav-links');
     navLinks.classList.toggle('active');
+    navLinks.classList.toggle('show');
   }
 </script>
 
